@@ -1,0 +1,595 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		092F482F258BB2CA00C58442 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092F482E258BB2CA00C58442 /* AppDelegate.swift */; };
+		092F4831258BB2CA00C58442 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092F4830258BB2CA00C58442 /* SceneDelegate.swift */; };
+		092F4833258BB2CA00C58442 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092F4832258BB2CA00C58442 /* ViewController.swift */; };
+		092F4836258BB2CA00C58442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 092F4834258BB2CA00C58442 /* Main.storyboard */; };
+		092F4838258BB2CD00C58442 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 092F4837258BB2CD00C58442 /* Assets.xcassets */; };
+		092F483B258BB2CD00C58442 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 092F4839258BB2CD00C58442 /* LaunchScreen.storyboard */; };
+		092F4846258BB2CD00C58442 /* SSmartMobileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092F4845258BB2CD00C58442 /* SSmartMobileTests.swift */; };
+		092F4851258BB2CD00C58442 /* SSmartMobileUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092F4850258BB2CD00C58442 /* SSmartMobileUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		092F4842258BB2CD00C58442 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 092F4823258BB2CA00C58442 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 092F482A258BB2CA00C58442;
+			remoteInfo = SSmartMobile;
+		};
+		092F484D258BB2CD00C58442 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 092F4823258BB2CA00C58442 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 092F482A258BB2CA00C58442;
+			remoteInfo = SSmartMobile;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		092F482B258BB2CA00C58442 /* SSmartMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SSmartMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		092F482E258BB2CA00C58442 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		092F4830258BB2CA00C58442 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		092F4832258BB2CA00C58442 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		092F4835258BB2CA00C58442 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		092F4837258BB2CD00C58442 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		092F483A258BB2CD00C58442 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		092F483C258BB2CD00C58442 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		092F4841258BB2CD00C58442 /* SSmartMobileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SSmartMobileTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		092F4845258BB2CD00C58442 /* SSmartMobileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSmartMobileTests.swift; sourceTree = "<group>"; };
+		092F4847258BB2CD00C58442 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		092F484C258BB2CD00C58442 /* SSmartMobileUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SSmartMobileUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		092F4850258BB2CD00C58442 /* SSmartMobileUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSmartMobileUITests.swift; sourceTree = "<group>"; };
+		092F4852258BB2CD00C58442 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		092F4828258BB2CA00C58442 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		092F483E258BB2CD00C58442 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		092F4849258BB2CD00C58442 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		092F4822258BB2CA00C58442 = {
+			isa = PBXGroup;
+			children = (
+				092F482D258BB2CA00C58442 /* SSmartMobile */,
+				092F4844258BB2CD00C58442 /* SSmartMobileTests */,
+				092F484F258BB2CD00C58442 /* SSmartMobileUITests */,
+				092F482C258BB2CA00C58442 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		092F482C258BB2CA00C58442 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				092F482B258BB2CA00C58442 /* SSmartMobile.app */,
+				092F4841258BB2CD00C58442 /* SSmartMobileTests.xctest */,
+				092F484C258BB2CD00C58442 /* SSmartMobileUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		092F482D258BB2CA00C58442 /* SSmartMobile */ = {
+			isa = PBXGroup;
+			children = (
+				092F482E258BB2CA00C58442 /* AppDelegate.swift */,
+				092F4830258BB2CA00C58442 /* SceneDelegate.swift */,
+				092F4832258BB2CA00C58442 /* ViewController.swift */,
+				092F4834258BB2CA00C58442 /* Main.storyboard */,
+				092F4837258BB2CD00C58442 /* Assets.xcassets */,
+				092F4839258BB2CD00C58442 /* LaunchScreen.storyboard */,
+				092F483C258BB2CD00C58442 /* Info.plist */,
+			);
+			path = SSmartMobile;
+			sourceTree = "<group>";
+		};
+		092F4844258BB2CD00C58442 /* SSmartMobileTests */ = {
+			isa = PBXGroup;
+			children = (
+				092F4845258BB2CD00C58442 /* SSmartMobileTests.swift */,
+				092F4847258BB2CD00C58442 /* Info.plist */,
+			);
+			path = SSmartMobileTests;
+			sourceTree = "<group>";
+		};
+		092F484F258BB2CD00C58442 /* SSmartMobileUITests */ = {
+			isa = PBXGroup;
+			children = (
+				092F4850258BB2CD00C58442 /* SSmartMobileUITests.swift */,
+				092F4852258BB2CD00C58442 /* Info.plist */,
+			);
+			path = SSmartMobileUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		092F482A258BB2CA00C58442 /* SSmartMobile */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 092F4855258BB2CD00C58442 /* Build configuration list for PBXNativeTarget "SSmartMobile" */;
+			buildPhases = (
+				092F4827258BB2CA00C58442 /* Sources */,
+				092F4828258BB2CA00C58442 /* Frameworks */,
+				092F4829258BB2CA00C58442 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SSmartMobile;
+			productName = SSmartMobile;
+			productReference = 092F482B258BB2CA00C58442 /* SSmartMobile.app */;
+			productType = "com.apple.product-type.application";
+		};
+		092F4840258BB2CD00C58442 /* SSmartMobileTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 092F4858258BB2CD00C58442 /* Build configuration list for PBXNativeTarget "SSmartMobileTests" */;
+			buildPhases = (
+				092F483D258BB2CD00C58442 /* Sources */,
+				092F483E258BB2CD00C58442 /* Frameworks */,
+				092F483F258BB2CD00C58442 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				092F4843258BB2CD00C58442 /* PBXTargetDependency */,
+			);
+			name = SSmartMobileTests;
+			productName = SSmartMobileTests;
+			productReference = 092F4841258BB2CD00C58442 /* SSmartMobileTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		092F484B258BB2CD00C58442 /* SSmartMobileUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 092F485B258BB2CD00C58442 /* Build configuration list for PBXNativeTarget "SSmartMobileUITests" */;
+			buildPhases = (
+				092F4848258BB2CD00C58442 /* Sources */,
+				092F4849258BB2CD00C58442 /* Frameworks */,
+				092F484A258BB2CD00C58442 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				092F484E258BB2CD00C58442 /* PBXTargetDependency */,
+			);
+			name = SSmartMobileUITests;
+			productName = SSmartMobileUITests;
+			productReference = 092F484C258BB2CD00C58442 /* SSmartMobileUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		092F4823258BB2CA00C58442 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1150;
+				LastUpgradeCheck = 1150;
+				ORGANIZATIONNAME = Christian;
+				TargetAttributes = {
+					092F482A258BB2CA00C58442 = {
+						CreatedOnToolsVersion = 11.5;
+					};
+					092F4840258BB2CD00C58442 = {
+						CreatedOnToolsVersion = 11.5;
+						TestTargetID = 092F482A258BB2CA00C58442;
+					};
+					092F484B258BB2CD00C58442 = {
+						CreatedOnToolsVersion = 11.5;
+						TestTargetID = 092F482A258BB2CA00C58442;
+					};
+				};
+			};
+			buildConfigurationList = 092F4826258BB2CA00C58442 /* Build configuration list for PBXProject "SSmartMobile" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 092F4822258BB2CA00C58442;
+			productRefGroup = 092F482C258BB2CA00C58442 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				092F482A258BB2CA00C58442 /* SSmartMobile */,
+				092F4840258BB2CD00C58442 /* SSmartMobileTests */,
+				092F484B258BB2CD00C58442 /* SSmartMobileUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		092F4829258BB2CA00C58442 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				092F483B258BB2CD00C58442 /* LaunchScreen.storyboard in Resources */,
+				092F4838258BB2CD00C58442 /* Assets.xcassets in Resources */,
+				092F4836258BB2CA00C58442 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		092F483F258BB2CD00C58442 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		092F484A258BB2CD00C58442 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		092F4827258BB2CA00C58442 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				092F4833258BB2CA00C58442 /* ViewController.swift in Sources */,
+				092F482F258BB2CA00C58442 /* AppDelegate.swift in Sources */,
+				092F4831258BB2CA00C58442 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		092F483D258BB2CD00C58442 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				092F4846258BB2CD00C58442 /* SSmartMobileTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		092F4848258BB2CD00C58442 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				092F4851258BB2CD00C58442 /* SSmartMobileUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		092F4843258BB2CD00C58442 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 092F482A258BB2CA00C58442 /* SSmartMobile */;
+			targetProxy = 092F4842258BB2CD00C58442 /* PBXContainerItemProxy */;
+		};
+		092F484E258BB2CD00C58442 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 092F482A258BB2CA00C58442 /* SSmartMobile */;
+			targetProxy = 092F484D258BB2CD00C58442 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		092F4834258BB2CA00C58442 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				092F4835258BB2CA00C58442 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		092F4839258BB2CD00C58442 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				092F483A258BB2CD00C58442 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		092F4853258BB2CD00C58442 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		092F4854258BB2CD00C58442 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		092F4856258BB2CD00C58442 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 27B6D86QD4;
+				INFOPLIST_FILE = SSmartMobile/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.cjlopez.SSmartMobile;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		092F4857258BB2CD00C58442 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 27B6D86QD4;
+				INFOPLIST_FILE = SSmartMobile/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.cjlopez.SSmartMobile;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		092F4859258BB2CD00C58442 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 27B6D86QD4;
+				INFOPLIST_FILE = SSmartMobileTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.cjlopez.SSmartMobileTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SSmartMobile.app/SSmartMobile";
+			};
+			name = Debug;
+		};
+		092F485A258BB2CD00C58442 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 27B6D86QD4;
+				INFOPLIST_FILE = SSmartMobileTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.cjlopez.SSmartMobileTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SSmartMobile.app/SSmartMobile";
+			};
+			name = Release;
+		};
+		092F485C258BB2CD00C58442 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 27B6D86QD4;
+				INFOPLIST_FILE = SSmartMobileUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.cjlopez.SSmartMobileUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SSmartMobile;
+			};
+			name = Debug;
+		};
+		092F485D258BB2CD00C58442 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 27B6D86QD4;
+				INFOPLIST_FILE = SSmartMobileUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.cjlopez.SSmartMobileUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SSmartMobile;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		092F4826258BB2CA00C58442 /* Build configuration list for PBXProject "SSmartMobile" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				092F4853258BB2CD00C58442 /* Debug */,
+				092F4854258BB2CD00C58442 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		092F4855258BB2CD00C58442 /* Build configuration list for PBXNativeTarget "SSmartMobile" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				092F4856258BB2CD00C58442 /* Debug */,
+				092F4857258BB2CD00C58442 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		092F4858258BB2CD00C58442 /* Build configuration list for PBXNativeTarget "SSmartMobileTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				092F4859258BB2CD00C58442 /* Debug */,
+				092F485A258BB2CD00C58442 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		092F485B258BB2CD00C58442 /* Build configuration list for PBXNativeTarget "SSmartMobileUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				092F485C258BB2CD00C58442 /* Debug */,
+				092F485D258BB2CD00C58442 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 092F4823258BB2CA00C58442 /* Project object */;
+}
