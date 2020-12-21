@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		091B01892590DFB9004FC1AF /* DefaultConfigConstantes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091B01882590DFB9004FC1AF /* DefaultConfigConstantes.swift */; };
+		091B018E2590F7DA004FC1AF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091B018D2590F7DA004FC1AF /* LoginViewController.swift */; };
+		091B019425910472004FC1AF /* LoginUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091B019325910472004FC1AF /* LoginUtil.swift */; };
+		091B01A025911E6F004FC1AF /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091B019F25911E6F004FC1AF /* UserModel.swift */; };
 		092F482F258BB2CA00C58442 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092F482E258BB2CA00C58442 /* AppDelegate.swift */; };
 		092F4831258BB2CA00C58442 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092F4830258BB2CA00C58442 /* SceneDelegate.swift */; };
 		092F4833258BB2CA00C58442 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092F4832258BB2CA00C58442 /* ViewController.swift */; };
@@ -15,6 +19,7 @@
 		092F483B258BB2CD00C58442 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 092F4839258BB2CD00C58442 /* LaunchScreen.storyboard */; };
 		092F4846258BB2CD00C58442 /* SSmartMobileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092F4845258BB2CD00C58442 /* SSmartMobileTests.swift */; };
 		092F4851258BB2CD00C58442 /* SSmartMobileUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092F4850258BB2CD00C58442 /* SSmartMobileUITests.swift */; };
+		09A1DC36258FC35A00BFEF9D /* Constantes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A1DC35258FC35A00BFEF9D /* Constantes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +40,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		091B01882590DFB9004FC1AF /* DefaultConfigConstantes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultConfigConstantes.swift; sourceTree = "<group>"; };
+		091B018D2590F7DA004FC1AF /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		091B019325910472004FC1AF /* LoginUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUtil.swift; sourceTree = "<group>"; };
+		091B019F25911E6F004FC1AF /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		092F482B258BB2CA00C58442 /* SSmartMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SSmartMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		092F482E258BB2CA00C58442 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		092F4830258BB2CA00C58442 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +58,7 @@
 		092F484C258BB2CD00C58442 /* SSmartMobileUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SSmartMobileUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		092F4850258BB2CD00C58442 /* SSmartMobileUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSmartMobileUITests.swift; sourceTree = "<group>"; };
 		092F4852258BB2CD00C58442 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		09A1DC35258FC35A00BFEF9D /* Constantes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constantes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +86,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		091B01922591045F004FC1AF /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				091B019325910472004FC1AF /* LoginUtil.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		091B019825910545004FC1AF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				091B019F25911E6F004FC1AF /* UserModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		092F4822258BB2CA00C58442 = {
 			isa = PBXGroup;
 			children = (
@@ -99,10 +125,14 @@
 		092F482D258BB2CA00C58442 /* SSmartMobile */ = {
 			isa = PBXGroup;
 			children = (
+				091B019825910545004FC1AF /* Models */,
+				091B01922591045F004FC1AF /* Utils */,
+				09A1DC34258FC1F100BFEF9D /* Constantes */,
 				092F482E258BB2CA00C58442 /* AppDelegate.swift */,
 				092F4830258BB2CA00C58442 /* SceneDelegate.swift */,
 				092F4832258BB2CA00C58442 /* ViewController.swift */,
 				092F4834258BB2CA00C58442 /* Main.storyboard */,
+				091B018D2590F7DA004FC1AF /* LoginViewController.swift */,
 				092F4837258BB2CD00C58442 /* Assets.xcassets */,
 				092F4839258BB2CD00C58442 /* LaunchScreen.storyboard */,
 				092F483C258BB2CD00C58442 /* Info.plist */,
@@ -126,6 +156,15 @@
 				092F4852258BB2CD00C58442 /* Info.plist */,
 			);
 			path = SSmartMobileUITests;
+			sourceTree = "<group>";
+		};
+		09A1DC34258FC1F100BFEF9D /* Constantes */ = {
+			isa = PBXGroup;
+			children = (
+				09A1DC35258FC35A00BFEF9D /* Constantes.swift */,
+				091B01882590DFB9004FC1AF /* DefaultConfigConstantes.swift */,
+			);
+			path = Constantes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,7 +230,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1150;
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1230;
 				ORGANIZATIONNAME = Christian;
 				TargetAttributes = {
 					092F482A258BB2CA00C58442 = {
@@ -259,7 +298,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				091B018E2590F7DA004FC1AF /* LoginViewController.swift in Sources */,
+				091B01892590DFB9004FC1AF /* DefaultConfigConstantes.swift in Sources */,
+				091B01A025911E6F004FC1AF /* UserModel.swift in Sources */,
 				092F4833258BB2CA00C58442 /* ViewController.swift in Sources */,
+				09A1DC36258FC35A00BFEF9D /* Constantes.swift in Sources */,
+				091B019425910472004FC1AF /* LoginUtil.swift in Sources */,
 				092F482F258BB2CA00C58442 /* AppDelegate.swift in Sources */,
 				092F4831258BB2CA00C58442 /* SceneDelegate.swift in Sources */,
 			);
@@ -342,6 +386,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -402,6 +447,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
