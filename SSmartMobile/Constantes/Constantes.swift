@@ -11,7 +11,7 @@ class Constantes {
     static let REQUEST_CODE_BACKGROUND: Int = 1992;
     static let SERVERBASE_URL: String = "https://ssmartmobile.herokuapp.com/";
     
-    
+    static let TIME_INTERVAL:String = "timeInterval"
     static let SAMPLE_RATE_GPS: String = "sampleRateGPS";
     static let TIME_GPS: String = "timeGPS";
     static let TIME_ACC: String = "timeAcc";

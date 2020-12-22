@@ -31,7 +31,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
+    
+    
 
 
+}
+
+extension Date {
+   func getFormattedDate() -> String {
+    let format = "yyyy-MM-dd HH:mm:ss"
+    let dateformat = DateFormatter()
+    dateformat.timeZone = TimeZone(abbreviation: "UTC")
+    dateformat.dateFormat = format
+    return dateformat.string(from: self)
+    }
 }
 

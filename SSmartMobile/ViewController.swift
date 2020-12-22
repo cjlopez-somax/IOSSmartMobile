@@ -19,10 +19,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     private var dateStartLocation: Date?
     private var dateEndLocation:Date?
     
+    private var gpsMatrix = [GpsInfo] ()
     var gameTimer: Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        /*
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             let randomNumber = Int.random(in: 1...20)
             print("Number: \(randomNumber)")
@@ -30,7 +32,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             if randomNumber == 10 {
                 timer.invalidate()
             }
-        }
+        }*/
         
         // Do any additional setup after loading the view.
     }
@@ -39,9 +41,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBAction func iniciarLocationClick(_ sender: UIButton) {
         print("Iniciar Location")
         dateStartLocation = getCurrentTime()
-        dateEndLocation = dateStartLocation?.addingTimeInterval(30)
+        getEndTimeGps()
         print("Date Start Location: \(dateStartLocation as Any)")
         print("Date End Location: \(dateEndLocation as Any)")
+        
+        
         locationManager = CLLocationManager()
         locationManager?.desiredAccuracy = kCLLocationAccuracyBest
         locationManager?.requestAlwaysAuthorization()
@@ -52,15 +56,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBAction func buttonClick(_ sender: UIButton) {
         print("Stop Location")
-        locationManager?.stopUpdatingLocation()
+        stopLocationUpdates()
     }
     
     
     @IBAction func iniciarAccelerometerClick(_ sender: UIButton) {
         //print("Iniciar Accelerometer")
         
-        let isLogin = LoginUtil().isLogin()
-        print("isLogin : \(isLogin)")
+        ConfigController().getConfig()
         /*
         motion.accelerometerUpdateInterval = 0.5
         motion.startAccelerometerUpdates(to: OperationQueue.current!){ (data, error) in
@@ -71,7 +74,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     
     @IBAction func stopAccelerometerClick(_ sender: UIButton) {
-        LoginUtil().logout()
+        print("CancelarAcc is clicked")
+        print(gpsMatrix)
+        //LoginUtil().logout()
         //print("Stop Accelerometer")
         //motion.stopAccelerometerUpdates()
     }
@@ -80,16 +85,23 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         if let location = locations.last {
             let latitude = location.coordinate.latitude
             let longitude = location.coordinate.longitude
-            self.count += 1
-            print("latitude: \(latitude ) - longitude: \(longitude)")
             let currentDateTime = getCurrentTime()
-            let diffComponents = Calendar.current.dateComponents([.second], from: currentDateTime, to: dateEndLocation!)
-            let seconds = diffComponents.second
-            print("Count: \(self.count)")
-            print("Difference in seconds: \(String(describing: seconds))")
-            if seconds ?? 0 <= 0 {
+            
+            let gpsInfo = GpsInfo(latitude: latitude, longitude: longitude, dateTime: currentDateTime)
+            self.gpsMatrix.append(gpsInfo)
+            print("latitude: \(latitude ) - longitude: \(longitude)")
+            if currentDateTime >= self.dateEndLocation!{
                 print("Diference is less")
+                let gpsData = GpsData(gpsMatrix: self.gpsMatrix, dateTimeStart: self.dateStartLocation, dateTimeEnd: self.dateEndLocation)
+                
+                let timeInterval = ConfigUtil().getTimeIntervalGPS()
+                print("timeInterval: \(timeInterval)")
+                self.dateStartLocation = currentDateTime.addingTimeInterval(TimeInterval(timeInterval))
+                getEndTimeGps() 
+                GpsController().post(gpsData: gpsData)
+                self.gpsMatrix.removeAll()
             }
+            
             
         }
     }
@@ -101,6 +113,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         return date
     }
     
+    func getEndTimeGps(){
+        let timeGps = ConfigUtil().getTimeGps()
+        self.dateEndLocation = self.dateStartLocation?.addingTimeInterval(TimeInterval(timeGps))
+    }
+    
+    func stopLocationUpdates(){
+        locationManager?.stopUpdatingLocation()
+        self.dateStartLocation = nil
+        self.dateEndLocation = nil
+        self.gpsMatrix.removeAll()
+    }
     
 }
-
