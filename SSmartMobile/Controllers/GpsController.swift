@@ -15,7 +15,7 @@ class GpsController {
     
     func post(gpsData: GpsData){
         print("getConfig is called")
-        let url = String( format : Constantes.SERVERBASE_URL + "gps")
+        let url = String( format : Constantes.SERVERBASE_URL + "flota/saveApplicationGps")
         guard let serviceUrl = URL(string: url) else { return }
         var urlRequest = URLRequest(url: serviceUrl)
         urlRequest.httpMethod = "POST"
@@ -32,6 +32,7 @@ class GpsController {
                 print("No valid response")
                 return
             }
+            print("Code \(httpResponse.statusCode)" )
             switch httpResponse.statusCode {
                 case 200:
                     print("GPS Guardado")
@@ -39,6 +40,7 @@ class GpsController {
                     print("Error on login")
                 
                 default:
+                    print("Error on response")
                     return
             }
             

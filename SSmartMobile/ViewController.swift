@@ -60,6 +60,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     
+    
     @IBAction func iniciarAccelerometerClick(_ sender: UIButton) {
         //print("Iniciar Accelerometer")
         
@@ -76,9 +77,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBAction func stopAccelerometerClick(_ sender: UIButton) {
         print("CancelarAcc is clicked")
         print(gpsMatrix)
-        //LoginUtil().logout()
+        LoginUtil().logout()
         //print("Stop Accelerometer")
         //motion.stopAccelerometerUpdates()
+    }
+    
+    
+    @IBAction func onGoToMapClick(_ sender: UIButton) {
+        print("go To Map")
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyBoard.instantiateViewController(withIdentifier: "map")
+        vc.modalPresentationStyle = .overFullScreen
+        self.present(vc, animated: true, completion: nil)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

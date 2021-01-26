@@ -16,6 +16,7 @@ struct Config: Decodable {
     var timeAccPassenger: Int
     var sleeptimeStart: String
     var sleeptimeEnd: String
+    var sleepDays: String
     var dailyAccAccess: Int
     var dailyGPSAccess: Int
     var detectDriveDuration: Int
@@ -25,6 +26,8 @@ struct Config: Decodable {
     var dd1TimesLimit: Int
     var dd2TimesLimit: Int
     
+    var phoneInvalid: Int
+    
     enum CodingKeys: String, CodingKey {
         case timeIntervalIOS = "timeIntervalIOS"
         case sampleRateGPS = "sampleRateGPS"
@@ -33,6 +36,7 @@ struct Config: Decodable {
         case timeAccPassenger = "timeAccPassenger"
         case sleeptimeStart = "sleeptimeStart"
         case sleeptimeEnd = "sleeptimeEnd"
+        case sleepDays = "sleepDays"
         case dailyAccAccess = "dailyAccAccess"
         case dailyGPSAccess = "dailyGPSAccess"
         case detectDriveDuration = "detectDriveDuration"
@@ -41,6 +45,8 @@ struct Config: Decodable {
         case passengerLimitStop = "passengerLimitStop"
         case dd1TimesLimit = "dd1TimesLimit"
         case dd2TimesLimit = "dd2TimesLimit"
+        
+        case phoneInvalid = "phoneInvalid"
         
         
     }

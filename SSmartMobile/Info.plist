@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>com.cjlopez.detectdrive</string>
@@ -25,10 +27,6 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Localización es necesaria para el correcto funcionamiento</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Localización es necesaria para el correcto funcionamiento</string>
-	<key>NSLocationUsageDescription</key>
 	<string>Localización es necesaria para el correcto funcionamiento</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Localización es necesaria para el correcto funcionamiento</string>
@@ -64,7 +62,7 @@
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
-        <string>accelerometer</string>
+		<string>accelerometer</string>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>

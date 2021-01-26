@@ -18,6 +18,7 @@ class Constantes {
     static let TIME_ACC_PASSENGER: String = "timeAccPassenger";
     static let SLEEP_TIME_START: String = "sleeptimeStart";
     static let SLEEP_TIME_END: String = "sleeptimeEnd";
+    static let SLEEP_DAYS: String = "sleepDays";
     static let DAILY_ACC_ACCESS: String = "dailyAccAccess";
     static let DAILY_GPS_ACCESS: String = "dailyGPSAccess";
     static let DETECT_DRIVE_DURATION: String = "detectDriveDuration";
@@ -32,6 +33,7 @@ class Constantes {
     static let ACTUAL_DAILY_GPS_ACCESS: String = "actualDailyGPSAccess";
     static let DD1_TIMES: String = "DD1Times";
     static let DD2_TIMES: String = "DD2Times";
+    static let PHONE_INVALID: String = "phoneInvalid";
     
     static let DETECT_DRIVE_DATE: String = "detectDriveDate";
     

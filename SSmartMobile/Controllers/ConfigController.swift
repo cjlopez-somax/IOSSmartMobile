@@ -16,9 +16,13 @@ class ConfigController{
     
     func getConfig(){
         print("getConfig is called")
-        let url = String( format : Constantes.SERVERBASE_URL + "config")
-        guard let serviceUrl = URL(string: url) else { return }
-        var urlRequest = URLRequest(url: serviceUrl)
+        let url = String( format : Constantes.SERVERBASE_URL + "flota/getApplicationsSetting")
+        let urlComponents = NSURLComponents(string: url)!
+        urlComponents.queryItems = [
+            URLQueryItem(name: "id", value: LoginUtil().getIdUser()),
+            URLQueryItem(name: "pass", value: LoginUtil().getPassword()),
+        ]
+        var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "POST"
         urlRequest.setValue("Application/json", forHTTPHeaderField: "Content-Type")
         let dataDictionary = ["id":LoginUtil().getIdUser(),"password":LoginUtil().getPassword()]

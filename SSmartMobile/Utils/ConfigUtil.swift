@@ -23,6 +23,7 @@ class ConfigUtil{
         preferences.set(config.timeAccPassenger, forKey: Constantes.TIME_ACC_PASSENGER)
         preferences.set(config.sleeptimeStart, forKey: Constantes.SLEEP_TIME_START)
         preferences.set(config.sleeptimeEnd, forKey: Constantes.SLEEP_TIME_END)
+        preferences.set(config.sleepDays, forKey: Constantes.SLEEP_DAYS)
         preferences.set(config.dailyAccAccess, forKey: Constantes.DAILY_ACC_ACCESS)
         preferences.set(config.dailyGPSAccess, forKey: Constantes.DAILY_GPS_ACCESS)
         preferences.set(config.detectDriveDuration, forKey: Constantes.DETECT_DRIVE_DURATION)
@@ -31,6 +32,8 @@ class ConfigUtil{
         preferences.set(config.passengerLimitStop, forKey: Constantes.PASSENGER_LIMIT_STOP)
         preferences.set(config.dd1TimesLimit, forKey: Constantes.DD1_TIMES_LIMIT)
         preferences.set(config.dd2TimesLimit, forKey: Constantes.DD2_TIMES_LIMIT)
+        
+        preferences.set(config.phoneInvalid, forKey: Constantes.PHONE_INVALID)
     }
     
     func getTimeIntervalGPS() -> Int{

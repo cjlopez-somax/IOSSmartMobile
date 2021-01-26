@@ -47,4 +47,8 @@ class LoginUtil {
         let preferences = UserDefaults.standard
         return preferences.string(forKey: Constantes.PASSWORD)!
     }
+    
+    func getUser() -> User{
+        return User(id: getIdUser(), pass: getPassword())
+    }
 }

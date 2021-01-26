@@ -10,10 +10,6 @@ import Foundation
 
 struct User: Decodable {
     var id: String
-    var password: String
+    var pass: String
     
-    enum CodingKeys: String, CodingKey {
-        case id = "id"
-        case password = "password"
-    }
 }
