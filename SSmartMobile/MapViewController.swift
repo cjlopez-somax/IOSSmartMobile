@@ -19,12 +19,26 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     private var gpsMatrix = [GpsInfo] ()
     
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var detectDriveView: UIView!
     
     override func viewDidLoad() {
         print("View on Map ready")
         super.viewDidLoad()
         checkLocationServices()
+        setupViewDetectDrive()
     }
+    
+    func setupViewDetectDrive(){
+            detectDriveView.layer.cornerRadius = 20
+            detectDriveView.layer.opacity = 0.7
+            detectDriveView.layer.borderWidth = 3
+            detectDriveView.layer.borderColor = UIColor.white.cgColor
+            detectDriveView.layer.shadowColor = UIColor.black.cgColor
+            detectDriveView.layer.shadowRadius = 5
+            detectDriveView.layer.shadowOpacity = 0.7
+            detectDriveView.layer.shadowOffset = CGSize(width: 5, height: 5)
+            detectDriveView.layer.backgroundColor = "#141d47".color.cgColor
+        }
     
     func checkLocationServices(){
         if CLLocationManager.locationServicesEnabled(){
