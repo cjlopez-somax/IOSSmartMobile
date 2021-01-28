@@ -9,22 +9,24 @@
 import Foundation
 
 struct GpsData:Encodable{
+    var _id:String
     var platform:String="ios"
-    var idUser: String
-    var password: String
+    var id: String
+    var pass: String
     var dateTimeStart: String?
     var dateTimeEnd: String?
     var lastDD: Int
     var gpsMatrix = [GpsInfo] ()
     
     init(gpsMatrix: [GpsInfo], dateTimeStart: Date?=nil, dateTimeEnd: Date?=nil) {
-        self.idUser = LoginUtil().getIdUser()
-        self.password = LoginUtil().getPassword()
+        self.id = LoginUtil().getIdUser()
+        self.pass = LoginUtil().getPassword()
         
         self.gpsMatrix = gpsMatrix
         self.dateTimeStart = dateTimeStart?.getFormattedDate()
         self.dateTimeEnd = dateTimeEnd?.getFormattedDate()
-        self.lastDD = 0
+        self.lastDD = DriveUtil.getDetectDriveState()
+        self._id = GeneralFunctions.getIdentifierMovil()
     }
 }
 

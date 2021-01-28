@@ -24,17 +24,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        /*
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            let randomNumber = Int.random(in: 1...20)
-            print("Number: \(randomNumber)")
-
-            if randomNumber == 10 {
-                timer.invalidate()
-            }
-        }*/
-        
-        // Do any additional setup after loading the view.
     }
 
     

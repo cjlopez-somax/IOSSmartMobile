@@ -16,7 +16,7 @@ class ConfigUtil{
     func saveConfig(config:Config){
         print("saveConfig is called")
         let preferences = UserDefaults.standard
-        preferences.set(config.timeIntervalIOS, forKey: Constantes.TIME_INTERVAL)
+        preferences.set(config.timeInterval, forKey: Constantes.TIME_INTERVAL)
         preferences.set(config.sampleRateGPS, forKey: Constantes.SAMPLE_RATE_GPS)
         preferences.set(config.timeGPS, forKey: Constantes.TIME_GPS)
         preferences.set(config.timeAcc, forKey: Constantes.TIME_ACC)
@@ -39,9 +39,9 @@ class ConfigUtil{
     func getTimeIntervalGPS() -> Int{
         print("getTimeIntervalGps is called")
         let preferences = UserDefaults.standard
-        let timeIntervalGPS = preferences.integer(forKey: Constantes.TIME_INTERVAL)
-        print("timeIntervalGps: \(timeIntervalGPS)")
-        return timeIntervalGPS != 0 ? timeIntervalGPS : DefaultConfigConstantes.TIME_INTERVAL_GPS
+        let timeInterval = preferences.integer(forKey: Constantes.TIME_INTERVAL)
+        print("timeInterval: \(timeInterval)")
+        return timeInterval != 0 ? timeInterval : DefaultConfigConstantes.TIME_INTERVAL
     }
     
     func getSampleRateGps() -> Int{

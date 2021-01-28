@@ -10,23 +10,48 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class MapViewController: UIViewController, CLLocationManagerDelegate {
+class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     private var locationManager = CLLocationManager()
     private var dateStartLocation: Date?
     private var dateEndLocation:Date?
+    
+    private var lastDDDate:Date?
+    private var isGpsUpdatingForServer:Bool = false
     
     private let regionInMeters:Double = 500
     private var gpsMatrix = [GpsInfo] ()
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var detectDriveView: UIView!
+    @IBOutlet weak var loadingStateDD: UIActivityIndicatorView!
+    
+    @IBOutlet weak var labelCountGps: UILabel!
+    private var maxCountGps = 5
+    private let currentCountGps = 1
     
     override func viewDidLoad() {
         print("View on Map ready")
         super.viewDidLoad()
+        
         checkLocationServices()
+        
         setupViewDetectDrive()
+        loadingStateDD.hidesWhenStopped = true
+        loadingStateDD.startAnimating()
+        
+        let countGpsString = "\(currentCountGps)/\(maxCountGps)"
+        labelCountGps.text = countGpsString
+        mapView.delegate = self
+        
+        
+        setVariables()
+        
     }
+    
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        let region = MKCoordinateRegion.init(center:userLocation.coordinate, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
+        mapView.setRegion(region, animated: true)
+      }
     
     func setupViewDetectDrive(){
             detectDriveView.layer.cornerRadius = 20
@@ -57,7 +82,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
              .authorizedWhenInUse:
             mapView.showsUserLocation = true
             centerViewOnUserLocation()
-            locationManager.startUpdatingLocation()
+            startMySignificantLocationChanges()
+            //locationManager.startUpdatingLocation()
             break
         case .denied:
             break
@@ -83,16 +109,22 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     func initLocation(){
         print("Iniciar Location")
-        dateStartLocation = getCurrentTime()
-        getEndTimeGps()
         print("Date Start Location: \(dateStartLocation as Any)")
         print("Date End Location: \(dateEndLocation as Any)")
-        
         
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
         locationManager.delegate = self
         locationManager.allowsBackgroundLocationUpdates = true
+    }
+    
+    func startMySignificantLocationChanges() {
+        if !CLLocationManager.significantLocationChangeMonitoringAvailable() {
+            // The device does not support this service.
+            print("Device does not support service for SignificantChangeMonitoring")
+            return
+        }
+        locationManager.startMonitoringSignificantLocationChanges()
     }
     
     func getCurrentTime() -> Date{
@@ -108,6 +140,66 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         self.dateEndLocation = self.dateStartLocation?.addingTimeInterval(TimeInterval(timeGps))
     }
     
+    func locationManager(_ manager: CLLocationManager,  didUpdateLocations locations: [CLLocation]) {
+       let location = locations.last!
+        let latitude = location.coordinate.latitude
+        let longitude = location.coordinate.longitude
+        print("latitude: \(latitude ) - longitude: \(longitude)")
+        let currentDateTime = getCurrentTime()
+        
+        if !self.isGpsUpdatingForServer {
+            
+            //Check GpsDailyMax
+            if VariablesUtil.isMaxDailyGpsAccess() {
+                
+                locationManager.stopMonitoringSignificantLocationChanges()
+                print("Máximo Gps Daily")
+                return
+            }
+            
+            
+            if self.lastDDDate == nil || currentDateTime >= self.lastDDDate!{
+                print("lastDDDate es nulo o mayor")
+                
+                locationManager.stopMonitoringSignificantLocationChanges()
+                locationManager.startUpdatingLocation()
+                
+                
+                VariablesUtil.addGpsAccessTimes()
+                
+                isGpsUpdatingForServer = true
+                
+                let timeInterval = ConfigUtil().getTimeIntervalGPS()
+                print("timeInterval: \(timeInterval)")
+                self.lastDDDate = currentDateTime.addingTimeInterval(TimeInterval(timeInterval))
+                
+                
+                dateStartLocation = getCurrentTime()
+                getEndTimeGps()
+                
+            }
+            
+            return
+        }
+        
+        print("recolectando datos")
+        let gpsInfo = GpsInfo(latitude: latitude, longitude: longitude, dateTime: currentDateTime)
+        self.gpsMatrix.append(gpsInfo)
+        if currentDateTime >= self.dateEndLocation!{
+            print("Diference is less")
+            let gpsData = GpsData(gpsMatrix: self.gpsMatrix, dateTimeStart: self.dateStartLocation, dateTimeEnd: self.dateEndLocation)
+            
+            GpsController().post(gpsData: gpsData)
+            self.gpsMatrix.removeAll()
+            
+            locationManager.stopUpdatingLocation()
+            locationManager.startMonitoringSignificantLocationChanges()
+            self.isGpsUpdatingForServer = false
+            
+        }
+    }
+    
+    /*
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         if let location = locations.last {
@@ -118,7 +210,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             let region = MKCoordinateRegion.init(center: center, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
             mapView.setRegion(region, animated: true)
             
-            
+            checkDetectDrive3()
             let currentDateTime = getCurrentTime()
             
             
@@ -145,6 +237,32 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             
             
         }
+    } */
+    
+    func checkDetectDrive3(){
+        let detectDriveState = DriveUtil.getDetectDriveState()
+        
+        if detectDriveState == 3 {
+            print("DetectDrive 3 is detect")
+            locationManager.stopUpdatingLocation()
+            DriveUtil.setDetectDriveState(detectDriveState: 0)
+            self.loadingStateDD.stopAnimating()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+       if let error = error as? CLError, error.code == .denied {
+          // Location updates are not authorized.
+          manager.stopMonitoringSignificantLocationChanges()
+          return
+       }
+       // Notify the user of any errors.
     }
 
+    
+    func setVariables(){
+        VariablesUtil.setDD1Times(dd1Times: 0)
+        VariablesUtil.setDD2Times(dd2Times: 0)
+        VariablesUtil.setGpsAccessTimes(gpsAccessTimes: 0)
+    }
 }

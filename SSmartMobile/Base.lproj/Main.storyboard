@@ -91,7 +91,7 @@
                                 <rect key="frame" x="46" y="710" width="298" height="60"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Por favor espere..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A6W-4V-N9z">
-                                        <rect key="frame" x="105" y="37" width="89" height="12"/>
+                                        <rect key="frame" x="104.66666666666666" y="37" width="89" height="12"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -102,11 +102,33 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="vej-m8-lpX">
+                                        <rect key="frame" x="20" y="20" width="20" height="20"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="lm9-eb-sgS"/>
+                                            <constraint firstAttribute="width" constant="20" id="rgd-uV-Glc"/>
+                                        </constraints>
+                                        <edgeInsets key="layoutMargins" top="8" left="20" bottom="8" right="8"/>
+                                        <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </activityIndicatorView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Fz-8G-dFY">
+                                        <rect key="frame" x="278" y="20" width="0.0" height="20"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="A6W-4V-N9z" firstAttribute="top" secondItem="8RL-dH-W9D" secondAttribute="bottom" constant="8" symbolic="YES" id="AiW-5q-k3F"/>
+                                    <constraint firstAttribute="bottom" secondItem="vej-m8-lpX" secondAttribute="bottom" constant="20" id="FYN-j2-JY9"/>
+                                    <constraint firstAttribute="trailing" secondItem="5Fz-8G-dFY" secondAttribute="trailing" constant="20" id="FnD-hc-T4Q"/>
                                     <constraint firstAttribute="bottom" secondItem="A6W-4V-N9z" secondAttribute="bottom" constant="11" id="GcL-eh-KvB"/>
                                     <constraint firstItem="A6W-4V-N9z" firstAttribute="centerX" secondItem="8RL-dH-W9D" secondAttribute="centerX" id="LOx-I8-PCT"/>
+                                    <constraint firstItem="vej-m8-lpX" firstAttribute="top" secondItem="m2b-Ov-JJw" secondAttribute="top" constant="20" id="Oc6-2A-rkA"/>
+                                    <constraint firstAttribute="bottom" secondItem="5Fz-8G-dFY" secondAttribute="bottom" constant="20" id="TEO-rH-dph"/>
+                                    <constraint firstItem="vej-m8-lpX" firstAttribute="leading" secondItem="m2b-Ov-JJw" secondAttribute="leading" constant="20" id="WLK-nf-hrq"/>
+                                    <constraint firstItem="5Fz-8G-dFY" firstAttribute="top" secondItem="m2b-Ov-JJw" secondAttribute="top" constant="20" id="d0m-kX-Kpt"/>
                                     <constraint firstItem="A6W-4V-N9z" firstAttribute="centerX" secondItem="m2b-Ov-JJw" secondAttribute="centerX" id="os4-4o-aor"/>
                                     <constraint firstAttribute="height" constant="60" id="zxC-kH-YKv"/>
                                 </constraints>
@@ -134,6 +156,8 @@
                     </view>
                     <connections>
                         <outlet property="detectDriveView" destination="m2b-Ov-JJw" id="Q7V-sw-fbe"/>
+                        <outlet property="labelCountGps" destination="5Fz-8G-dFY" id="geu-9T-gcf"/>
+                        <outlet property="loadingStateDD" destination="vej-m8-lpX" id="Pxj-8V-SFg"/>
                         <outlet property="mapView" destination="OPn-hD-sXM" id="lr0-tR-kFq"/>
                     </connections>
                 </viewController>

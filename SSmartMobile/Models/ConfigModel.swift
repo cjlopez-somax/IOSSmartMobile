@@ -9,6 +9,7 @@
 import Foundation
 
 struct Config: Decodable {
+    var timeInterval: Int
     var timeIntervalIOS: Int
     var sampleRateGPS: Int
     var timeGPS: Int
@@ -29,6 +30,7 @@ struct Config: Decodable {
     var phoneInvalid: Int
     
     enum CodingKeys: String, CodingKey {
+        case timeInterval = "timeInterval"
         case timeIntervalIOS = "timeIntervalIOS"
         case sampleRateGPS = "sampleRateGPS"
         case timeGPS = "timeGPS"

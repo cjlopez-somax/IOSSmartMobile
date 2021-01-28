@@ -21,4 +21,13 @@ class GeneralFunctions: NSObject{
             alert.dismiss(animated: true)
         }
     }
+    
+    class func getIdentifierMovil()-> String{
+        
+        if let uuid = UIDevice.current.identifierForVendor?.uuidString {
+            return uuid
+        }
+        
+        return ""
+    }
 }

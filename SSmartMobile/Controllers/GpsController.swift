@@ -35,9 +35,14 @@ class GpsController {
             print("Code \(httpResponse.statusCode)" )
             switch httpResponse.statusCode {
                 case 200:
+                    do {
+                        let gpsResponse = try JSONDecoder().decode(GpsResponse.self, from: data)
+                        DriveUtil.setDetectDriveState(detectDriveState: gpsResponse.respond)
+                        print("gpsResponse: \(gpsResponse.respond)")
+                    } catch {
+                        print(error)
+                    }
                     print("GPS Guardado")
-                case 401:
-                    print("Error on login")
                 
                 default:
                     print("Error on response")

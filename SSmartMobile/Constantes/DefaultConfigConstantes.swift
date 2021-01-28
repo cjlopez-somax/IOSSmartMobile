@@ -9,7 +9,7 @@
 import UIKit
 
 class DefaultConfigConstantes {
-    static let TIME_INTERVAL_GPS: Int = 50;
+    static let TIME_INTERVAL: Int = 50;
     static let SLEEP_TIME_START_DEFAULT: String = "20:00";
     static let SLEEP_TIME_END_DEFAULT: String = "07:30";
     static let SAMPLE_RATE_GPS_DEFAULT: Int = 1;
