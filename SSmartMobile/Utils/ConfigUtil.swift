@@ -132,6 +132,63 @@ class ConfigUtil{
         return finalDetectDrive * 60
     }
     
+    func setLastConfigUpdateDate(date:Date){
+        let preferences = UserDefaults.standard
+        preferences.set(date, forKey: Constantes.LAST_CONFIG_UPDATE)
+    }
+    
+    func getLastConfigUpdateDate() -> Date{
+        let preferences = UserDefaults.standard
+        var date = GeneralFunctions.getCurrentTime()
+        if let dateStore = preferences.object(forKey: Constantes.LAST_CONFIG_UPDATE) as? Date {
+             date = dateStore
+        }
+        print("date: \(date)")
+        return date
+    }
+    
+    
+    func checkConfigUpdate(){
+        print("checkConfigUpdate is called")
+        let lastConfigUpdate = getLastConfigUpdateDate()
+        let isSameDay = Calendar.current.isDate(lastConfigUpdate, inSameDayAs: GeneralFunctions.getCurrentTime())
+        if !isSameDay{
+            ConfigController().getConfig()
+        }
+    }
+    
+    
+    func validateConfig(config:Config)->Bool{
+        
+        
+        if config.timeInterval < 1 ||
+            config.timeGPS <= 0 ||
+            config.dailyGPSAccess <= 0 ||
+            config.detectDriveDuration <= 0 ||
+            config.dd1TimesLimit <= 0 ||
+            config.dd2TimesLimit <= 0 ||
+            config.sleeptimeStart.isEmpty ||
+            config.sleeptimeEnd.isEmpty{
+                    print("Problems on general validateConfig")
+                    return false;
+        }
+        let sleepTimeStart = config.sleeptimeStart.components(separatedBy: ":")
+        let sleepTimeEnd = config.sleeptimeEnd.components(separatedBy: ":")
+        
+        let sleepTimeStartHour = Int(sleepTimeStart[0]) ?? 0
+        let sleepTimeStartMinutes = Int(sleepTimeStart[1]) ?? 0
+        
+        let sleepTimeEndHour = Int(sleepTimeEnd[0]) ?? 0
+        let sleepTimeEndMinutes = Int(sleepTimeEnd[1]) ?? 0
+        
+        if (sleepTimeStartHour < 0 || sleepTimeStartHour > 24 || sleepTimeStartMinutes < 0 || sleepTimeStartMinutes > 60) ||
+            (sleepTimeEndHour < 0 || sleepTimeEndHour > 24 || sleepTimeEndMinutes < 0 || sleepTimeEndMinutes > 60) ||
+            (config.phoneInvalid != 0 && config.phoneInvalid != 1){
+            return false;
+        }
+        
+        return true
+    }
     
     
 }

@@ -43,6 +43,7 @@ class Constantes {
     
     
     static let LAST_DATE_DETECTION: String = "detectDriveDate";
+    static let LAST_CONFIG_UPDATE: String = "lastConfigUpdate";
  }
 
 

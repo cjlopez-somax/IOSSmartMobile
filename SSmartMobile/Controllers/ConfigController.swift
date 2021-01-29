@@ -42,13 +42,20 @@ class ConfigController{
                 case 200:
                     do {
                         let config = try JSONDecoder().decode(Config.self, from: data)
-                        ConfigUtil().saveConfig(config: config)
+                        
+                        if ConfigUtil().validateConfig(config: config){
+                            print("ValidateConfig OK")
+                            ConfigUtil().setLastConfigUpdateDate(date: GeneralFunctions.getCurrentTime())
+                            ConfigUtil().saveConfig(config: config)
+                        }else{
+                            print("ValidaConfig Error")
+                        }
+                        
+                        
                         print(config)
                     } catch {
                         print(error)
                     }
-                case 401:
-                    print("Error on login")
                 
                 default:
                     return
