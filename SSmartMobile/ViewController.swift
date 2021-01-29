@@ -7,122 +7,61 @@
 //
 
 import UIKit
-import CoreLocation
-import CoreMotion
 
 
 
-class ViewController: UIViewController, CLLocationManagerDelegate {
-    private var locationManager: CLLocationManager?
-    var motion = CMMotionManager()
-    private var count = 0
-    private var dateStartLocation: Date?
-    private var dateEndLocation:Date?
-    
-    private var gpsMatrix = [GpsInfo] ()
-    var gameTimer: Timer?
+class ViewController: UIViewController {
+    @IBOutlet weak var UIButtonCall: UIButton!
+    @IBOutlet weak var UIButtonEmail: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupBackground()
+        setupButtons()
         
     }
-
-    
-    @IBAction func iniciarLocationClick(_ sender: UIButton) {
-        print("Iniciar Location")
-        dateStartLocation = getCurrentTime()
-        getEndTimeGps()
-        print("Date Start Location: \(dateStartLocation as Any)")
-        print("Date End Location: \(dateEndLocation as Any)")
-        
-        
-        locationManager = CLLocationManager()
-        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager?.requestAlwaysAuthorization()
-        locationManager?.startUpdatingLocation()
-        locationManager?.delegate = self
-        locationManager?.allowsBackgroundLocationUpdates = true
-    }
-    
-    @IBAction func buttonClick(_ sender: UIButton) {
-        print("Stop Location")
-        stopLocationUpdates()
-    }
     
     
-    
-    @IBAction func iniciarAccelerometerClick(_ sender: UIButton) {
-        //print("Iniciar Accelerometer")
-        
-        ConfigController().getConfig()
-        /*
-        motion.accelerometerUpdateInterval = 0.5
-        motion.startAccelerometerUpdates(to: OperationQueue.current!){ (data, error) in
-            print(data as Any)
-            
-        } */
-    }
-    
-    
-    @IBAction func stopAccelerometerClick(_ sender: UIButton) {
-        print("CancelarAcc is clicked")
-        print(gpsMatrix)
-        LoginUtil().logout()
-        //print("Stop Accelerometer")
-        //motion.stopAccelerometerUpdates()
-    }
-    
-    
-    @IBAction func onGoToMapClick(_ sender: UIButton) {
-        print("go To Map")
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyBoard.instantiateViewController(withIdentifier: "map")
-        vc.modalPresentationStyle = .overFullScreen
-        self.present(vc, animated: true, completion: nil)
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last {
-            let latitude = location.coordinate.latitude
-            let longitude = location.coordinate.longitude
-            let currentDateTime = getCurrentTime()
-            
-            let gpsInfo = GpsInfo(latitude: latitude, longitude: longitude, dateTime: currentDateTime)
-            self.gpsMatrix.append(gpsInfo)
-            print("latitude: \(latitude ) - longitude: \(longitude)")
-            if currentDateTime >= self.dateEndLocation!{
-                print("Diference is less")
-                let gpsData = GpsData(gpsMatrix: self.gpsMatrix, dateTimeStart: self.dateStartLocation, dateTimeEnd: self.dateEndLocation)
-                
-                let timeInterval = ConfigUtil().getTimeInterval()
-                print("timeInterval: \(timeInterval)")
-                self.dateStartLocation = currentDateTime.addingTimeInterval(TimeInterval(timeInterval))
-                getEndTimeGps() 
-                GpsController().post(gpsData: gpsData)
-                self.gpsMatrix.removeAll()
-            }
-            
-            
+    @IBAction func callClick(_ sender: UIButton) {
+        if let url = URL(string: "tel://+56933874630") {
+            UIApplication.shared.canOpenURL(url)
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
     
-    func getCurrentTime() -> Date{
-        let timezone = TimeZone.current
-        let seconds = TimeInterval(timezone.secondsFromGMT(for: Date()))
-        let date = Date(timeInterval: seconds, since: Date())
-        return date
+    @IBAction func emailClick(_ sender: UIButton) {
+        let email = "mesadeayuda@somax.cl"
+        if let url = URL(string: "mailto:\(email)") {
+          if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url)
+          } else {
+            UIApplication.shared.openURL(url)
+          }
+        }
     }
     
-    func getEndTimeGps(){
-        let timeGps = ConfigUtil().getTimeGps()
-        self.dateEndLocation = self.dateStartLocation?.addingTimeInterval(TimeInterval(timeGps))
+    
+    func setupBackground(){
+        overrideUserInterfaceStyle = .light
+        let layer = CAGradientLayer()
+        layer.frame = view.bounds
+        layer.colors = ["#141d47".color.cgColor, "#3d1e6a".color.cgColor]
+        layer.startPoint = CGPoint(x:0,y:0.5)
+        layer.endPoint = CGPoint(x:1,y:0.5)
+        view.layer.insertSublayer(layer, at: 0)
     }
     
-    func stopLocationUpdates(){
-        locationManager?.stopUpdatingLocation()
-        self.dateStartLocation = nil
-        self.dateEndLocation = nil
-        self.gpsMatrix.removeAll()
+    func setupButtons(){
+        UIButtonCall.backgroundColor = "#E8B321".color
+        UIButtonCall.layer.cornerRadius = 5
+        UIButtonCall.setTitleColor("#231198".color, for: .normal)
+        UIButtonCall.tintColor = UIColor.white
+        UIButtonCall.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        
+        UIButtonEmail.backgroundColor = "#E8B321".color
+        UIButtonEmail.layer.cornerRadius = 5
+        UIButtonEmail.setTitleColor("#231198".color, for: .normal)
+        UIButtonEmail.tintColor = UIColor.white
+        UIButtonEmail.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
     }
-    
 }
