@@ -67,4 +67,77 @@ class VariablesUtil: NSObject{
         }
         return false
     }
+    
+    class func isMaxDD1Times()->Bool{
+        let preferences = UserDefaults.standard
+        let dd1TimesLimit = preferences.integer(forKey: Constantes.DD1_TIMES_LIMIT)
+        let dd1Times = getDD1Times()
+        if dd1Times > dd1TimesLimit{
+            return true
+        }
+        
+        return false
+    }
+    
+    class func isMaxDD2Times()->Bool{
+        let preferences = UserDefaults.standard
+        let dd2TimesLimit = preferences.integer(forKey: Constantes.DD2_TIMES_LIMIT)
+        let dd2Times = getDD2Times()
+        if dd2Times > dd2TimesLimit{
+            return true
+        }
+        
+        return false
+    }
+    
+    
+    class func resetVariables(){
+        DriveUtil.setDetectDriveState(detectDriveState: 0)
+        setDD1Times(dd1Times: 0)
+        setDD2Times(dd2Times: 0)
+        setGpsAccessTimes(gpsAccessTimes: 0)
+        clearDetectDriveDate()
+    }
+    
+    class func setDetectDriveDate(){
+        let preferences = UserDefaults.standard
+        let date = GeneralFunctions.getCurrentTime()
+        preferences.set(date, forKey: Constantes.DETECT_DRIVE_DATE)
+    }
+    
+    class func clearDetectDriveDate(){
+        let preferences = UserDefaults.standard
+        preferences.removeObject(forKey: Constantes.DETECT_DRIVE_DATE)
+    }
+    
+    class func getDetectDriveDate() -> Date{
+        let preferences = UserDefaults.standard
+        var date = GeneralFunctions.getCurrentTime()
+        if let dateStore = preferences.object(forKey: Constantes.DETECT_DRIVE_DATE) as? Date {
+             date = dateStore
+        }
+        print("date: \(date)")
+        return date
+    }
+    
+    
+    class func setLastDateDetection(date:Date){
+        let preferences = UserDefaults.standard
+        preferences.set(date, forKey: Constantes.LAST_DATE_DETECTION)
+    }
+    
+    class func clearLastDateDetection(){
+        let preferences = UserDefaults.standard
+        preferences.removeObject(forKey: Constantes.LAST_DATE_DETECTION)
+    }
+    
+    class func getLastDateDetection() -> Date{
+        let preferences = UserDefaults.standard
+        var date = GeneralFunctions.getCurrentTime()
+        if let dateStore = preferences.object(forKey: Constantes.LAST_DATE_DETECTION) as? Date {
+             date = dateStore
+        }
+        print("date: \(date)")
+        return date
+    }
 }

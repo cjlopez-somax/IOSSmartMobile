@@ -36,12 +36,13 @@ class ConfigUtil{
         preferences.set(config.phoneInvalid, forKey: Constantes.PHONE_INVALID)
     }
     
-    func getTimeIntervalGPS() -> Int{
+    func getTimeInterval() -> Int{
         print("getTimeIntervalGps is called")
         let preferences = UserDefaults.standard
         let timeInterval = preferences.integer(forKey: Constantes.TIME_INTERVAL)
         print("timeInterval: \(timeInterval)")
-        return timeInterval != 0 ? timeInterval : DefaultConfigConstantes.TIME_INTERVAL
+        let finalTimeInterval = timeInterval != 0 ? timeInterval : DefaultConfigConstantes.TIME_INTERVAL
+        return finalTimeInterval * 60
     }
     
     func getSampleRateGps() -> Int{
@@ -59,4 +60,80 @@ class ConfigUtil{
         print("timeGpsOfPreference: \(timeGps)")
         return timeGps != 0 ? timeGps : DefaultConfigConstantes.TIME_GPS_DEFAULT
     }
+    
+    func getSleepDays()->Array<Int>{
+        let preferences = UserDefaults.standard
+        let sleepDays = preferences.string(forKey: Constantes.SLEEP_DAYS)
+        let days = sleepDays?.components(separatedBy: ",")
+        var intArraySleepDays = Array<Int>()
+        for day in days! {
+            intArraySleepDays.append(Int(day) ?? 0)
+        }
+        print("sleepDays: \(intArraySleepDays)")
+        return intArraySleepDays
+    }
+    
+    func isSleepDay()->Bool{
+        let sleepDays = getSleepDays()
+        let date = Date()
+        let calendar = Calendar.current
+        let actualDayGregorian = calendar.component(.weekday, from: date)
+        let actualDay = actualDayGregorian == 1 ? 7 : actualDayGregorian - 1
+        for day in sleepDays{
+            if actualDay == day{
+                return true
+            }
+        }
+        return false
+    }
+    
+    func getSleepTimeStart() -> Date{
+        let preferences = UserDefaults.standard
+        let sleepTimeStart = preferences.string(forKey: Constantes.SLEEP_TIME_START) ?? DefaultConfigConstantes.SLEEP_TIME_START_DEFAULT
+        let sleepTime = sleepTimeStart.components(separatedBy: ":")
+        let hour = Int((sleepTime[0]))
+        let minutes = Int((sleepTime[1]))
+        let date = Calendar.current.date(bySettingHour: hour!, minute: minutes!, second: 0, of: Date())!
+        let finalDate = GeneralFunctions.getDateTimeZone(date:date)
+        
+        return finalDate
+    }
+    
+    func getSleepTimeEnd() -> Date{
+        let preferences = UserDefaults.standard
+        let sleepTimeEnd = preferences.string(forKey: Constantes.SLEEP_TIME_END) ?? DefaultConfigConstantes.SLEEP_TIME_END_DEFAULT
+        let sleepTime = sleepTimeEnd.components(separatedBy: ":")
+        let hour = Int((sleepTime[0]))
+        let minutes = Int((sleepTime[1]))
+        let date = Calendar.current.date(bySettingHour: hour!, minute: minutes!, second: 0, of: Date())!
+        let finalDate = GeneralFunctions.getDateTimeZone(date:date)
+        return finalDate
+    }
+    
+    func isOnSleepTime()->Bool{
+        let sleepTimeStart = getSleepTimeStart()
+        let sleepTimeEnd = getSleepTimeEnd()
+        let actualDate = GeneralFunctions.getCurrentTime()
+        print("sleepTimeStart: \(sleepTimeStart)" )
+        print("sleepTimeEnd: \(sleepTimeEnd)" )
+        print("actualDate: \(actualDate)" )
+        
+        if actualDate < sleepTimeEnd || actualDate > sleepTimeStart {
+            return true
+        }
+        
+        return false
+    }
+    
+    func getDetectDriveDuration()->Int{
+        let preferences = UserDefaults.standard
+        let detectDriveDuration = preferences.integer(forKey: Constantes.DETECT_DRIVE_DURATION)
+        let finalDetectDrive = detectDriveDuration != 0 ? detectDriveDuration : DefaultConfigConstantes.DETECT_DRIVE_DURATION_DEFAULT
+        return finalDetectDrive * 60
+    }
+    
+    
+    
 }
+
+

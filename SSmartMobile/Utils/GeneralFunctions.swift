@@ -30,4 +30,18 @@ class GeneralFunctions: NSObject{
         
         return ""
     }
+    
+    class func getCurrentTime() -> Date{
+        let timezone = TimeZone.current
+        let seconds = TimeInterval(timezone.secondsFromGMT(for: Date()))
+        let date = Date(timeInterval: seconds, since: Date())
+        return date
+    }
+    
+    class func getDateTimeZone(date:Date)-> Date{
+        let timezone = TimeZone.current
+        let seconds = TimeInterval(timezone.secondsFromGMT(for: Date()))
+        let date = Date(timeInterval: seconds, since: date)
+        return date;
+    }
 }

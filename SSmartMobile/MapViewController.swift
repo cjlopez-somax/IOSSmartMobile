@@ -15,7 +15,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     private var dateStartLocation: Date?
     private var dateEndLocation:Date?
     
-    private var lastDDDate:Date?
+    private var lastDDDate:Date = VariablesUtil.getLastDateDetection()
     private var isGpsUpdatingForServer:Bool = false
     
     private let regionInMeters:Double = 500
@@ -43,8 +43,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         labelCountGps.text = countGpsString
         mapView.delegate = self
         
+        let isSameDay = Calendar.current.isDate(self.lastDDDate, inSameDayAs: GeneralFunctions.getCurrentTime())
+        print("isSameDay: \(isSameDay)")
+        if !isSameDay {
+            VariablesUtil.resetVariables()
+        }
         
-        setVariables()
         
     }
     
@@ -149,17 +153,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         if !self.isGpsUpdatingForServer {
             
-            //Check GpsDailyMax
-            if VariablesUtil.isMaxDailyGpsAccess() {
-                
-                locationManager.stopMonitoringSignificantLocationChanges()
-                print("Máximo Gps Daily")
+            if checkSleepDay() ||
+                checkSleepTime() ||
+                checkDetectDrive3() ||
+                checkGpsDaily() ||
+                checkDD1Limit() ||
+                checkDD2Limit(){
+                print("return on check")
                 return
             }
-            
-            
-            if self.lastDDDate == nil || currentDateTime >= self.lastDDDate!{
-                print("lastDDDate es nulo o mayor")
+            print("lastDDDate: \(lastDDDate)")
+            if currentDateTime >= self.lastDDDate{
+                print("lastDDDate es mayor")
                 
                 locationManager.stopMonitoringSignificantLocationChanges()
                 locationManager.startUpdatingLocation()
@@ -169,9 +174,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 
                 isGpsUpdatingForServer = true
                 
-                let timeInterval = ConfigUtil().getTimeIntervalGPS()
+                let timeInterval = ConfigUtil().getTimeInterval()
                 print("timeInterval: \(timeInterval)")
                 self.lastDDDate = currentDateTime.addingTimeInterval(TimeInterval(timeInterval))
+                VariablesUtil.setLastDateDetection(date:self.lastDDDate)
                 
                 
                 dateStartLocation = getCurrentTime()
@@ -199,55 +205,59 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
     
-    /*
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        if let location = locations.last {
-            let latitude = location.coordinate.latitude
-            let longitude = location.coordinate.longitude
-            
-            let center = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-            let region = MKCoordinateRegion.init(center: center, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
-            mapView.setRegion(region, animated: true)
-            
-            checkDetectDrive3()
-            let currentDateTime = getCurrentTime()
-            
-            
-            print("latitude: \(latitude ) - longitude: \(longitude)")
-            
-            if currentDateTime < self.dateStartLocation!{
-                print("current is less")
-                return
-            }
-            
-            let gpsInfo = GpsInfo(latitude: latitude, longitude: longitude, dateTime: currentDateTime)
-            self.gpsMatrix.append(gpsInfo)
-            if currentDateTime >= self.dateEndLocation!{
-                print("Diference is less")
-                let gpsData = GpsData(gpsMatrix: self.gpsMatrix, dateTimeStart: self.dateStartLocation, dateTimeEnd: self.dateEndLocation)
-                
-                let timeInterval = ConfigUtil().getTimeIntervalGPS()
-                print("timeInterval: \(timeInterval)")
-                self.dateStartLocation = currentDateTime.addingTimeInterval(TimeInterval(timeInterval))
-                getEndTimeGps()
-                GpsController().post(gpsData: gpsData)
-                self.gpsMatrix.removeAll()
-            }
-            
-            
-        }
-    } */
-    
-    func checkDetectDrive3(){
+    func checkDetectDrive3() -> Bool{
         let detectDriveState = DriveUtil.getDetectDriveState()
-        
         if detectDriveState == 3 {
             print("DetectDrive 3 is detect")
-            locationManager.stopUpdatingLocation()
-            DriveUtil.setDetectDriveState(detectDriveState: 0)
-            self.loadingStateDD.stopAnimating()
+            changeToDD3()
+            return true
         }
+        
+        return false
+    }
+    
+    func checkSleepDay()->Bool{
+        if ConfigUtil().isSleepDay(){
+            print("SleepDay is detect")
+            return true
+        }
+        return false
+    }
+    
+    func checkSleepTime() -> Bool{
+        if ConfigUtil().isOnSleepTime(){
+            print("SleepTime is detect")
+            return true
+        }
+        
+        return false
+    }
+    
+    func checkGpsDaily()->Bool{
+        if VariablesUtil.isMaxDailyGpsAccess() {
+            // LastDD to sleepTimeEnd
+            print("Máximo Gps Daily")
+            return true
+        }
+        return false
+    }
+    
+    func checkDD1Limit()->Bool{
+        if VariablesUtil.isMaxDD1Times(){
+            changeToDD3()
+            print("Máximo DD1 Daily")
+            return true
+        }
+        return false
+    }
+    
+    func checkDD2Limit()->Bool{
+        if VariablesUtil.isMaxDD2Times(){
+            changeToDD3()
+            print("Máximo DD2 Daily")
+            return true
+        }
+        return false
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -260,9 +270,22 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
 
     
-    func setVariables(){
-        VariablesUtil.setDD1Times(dd1Times: 0)
-        VariablesUtil.setDD2Times(dd2Times: 0)
-        VariablesUtil.setGpsAccessTimes(gpsAccessTimes: 0)
+    func changeToDD3(){
+        let detectDriveDuration = ConfigUtil().getDetectDriveDuration()
+        let dateDetectDrive = VariablesUtil.getDetectDriveDate().addingTimeInterval(TimeInterval(detectDriveDuration))
+        print("dateDetectDrive: \(dateDetectDrive)")
+        let dateSleepTimeStart = ConfigUtil().getSleepTimeStart()
+        print("dateSleepTimeStart: \(dateSleepTimeStart)")
+        if dateDetectDrive >= dateSleepTimeStart {
+            print("detectDriveDate is over sleepTime")
+            VariablesUtil.resetVariables()
+            
+        }else{
+            self.lastDDDate = dateDetectDrive
+            VariablesUtil.setLastDateDetection(date: self.lastDDDate)
+        }
+        
+        
+        DriveUtil.setDetectDriveState(detectDriveState: 0)
     }
 }

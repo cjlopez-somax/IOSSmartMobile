@@ -40,6 +40,9 @@ class Constantes {
     static let ID_USER: String = "idUser";
     static let PASSWORD: String = "password";
     static let IS_LOGIN: String = "isLogin";
+    
+    
+    static let LAST_DATE_DETECTION: String = "detectDriveDate";
  }
 
 

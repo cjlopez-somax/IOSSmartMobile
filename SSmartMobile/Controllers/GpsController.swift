@@ -37,8 +37,8 @@ class GpsController {
                 case 200:
                     do {
                         let gpsResponse = try JSONDecoder().decode(GpsResponse.self, from: data)
-                        DriveUtil.setDetectDriveState(detectDriveState: gpsResponse.respond)
                         print("gpsResponse: \(gpsResponse.respond)")
+                        self.checkDetectDriveRespServer(respond: gpsResponse.respond)
                     } catch {
                         print(error)
                     }
@@ -52,6 +52,52 @@ class GpsController {
                 
             }.resume()
         
+    }
+    
+    func checkDetectDriveRespServer(respond: Int){
+        let oldDetectDrive = DriveUtil.getDetectDriveState()
+        
+        switch respond {
+        case 0:
+            if oldDetectDrive != 0 {
+                DriveUtil.setDetectDriveState(detectDriveState: respond)
+            }
+            break
+        case 1:
+            
+            VariablesUtil.setDetectDriveDate()
+            
+            if oldDetectDrive == 0 {
+                DriveUtil.setDetectDriveState(detectDriveState: respond)
+                VariablesUtil.setDD1Times(dd1Times: 1)
+            }else if oldDetectDrive == 1 {
+                DriveUtil.setDetectDriveState(detectDriveState: respond)
+                VariablesUtil.addDD1Times()
+            }
+            else if oldDetectDrive == 2 {
+                // Change to DD3
+                DriveUtil.setDetectDriveState(detectDriveState: 3)
+                print("ChangeToDD3 from respond 1 and oldDetectDrive 2")
+            }
+            break
+        case 2:
+            if oldDetectDrive == 0 || oldDetectDrive == 1 {
+                DriveUtil.setDetectDriveState(detectDriveState: respond)
+                VariablesUtil.setDD2Times(dd2Times: 1)
+            }else if oldDetectDrive == 2{
+                DriveUtil.setDetectDriveState(detectDriveState: respond)
+                VariablesUtil.addDD2Times()
+            }
+            
+            break
+        case 3:
+            // Change To DD3
+            DriveUtil.setDetectDriveState(detectDriveState: 3)
+            print("ChangeToDD3 from respond 3")
+            break
+        default:
+            break
+        }
     }
     
 }

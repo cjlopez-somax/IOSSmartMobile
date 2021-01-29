@@ -24,6 +24,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
 
     
@@ -93,7 +94,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 print("Diference is less")
                 let gpsData = GpsData(gpsMatrix: self.gpsMatrix, dateTimeStart: self.dateStartLocation, dateTimeEnd: self.dateEndLocation)
                 
-                let timeInterval = ConfigUtil().getTimeIntervalGPS()
+                let timeInterval = ConfigUtil().getTimeInterval()
                 print("timeInterval: \(timeInterval)")
                 self.dateStartLocation = currentDateTime.addingTimeInterval(TimeInterval(timeInterval))
                 getEndTimeGps() 
