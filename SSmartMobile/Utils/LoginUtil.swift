@@ -51,4 +51,10 @@ class LoginUtil {
     func getUser() -> User{
         return User(id: getIdUser(), pass: getPassword())
     }
+    
+    func phoneInvalidDetect(){
+        logout()
+        GpsSqlite.deleteTablesGps()
+        VariablesUtil.resetVariables()
+    }
 }

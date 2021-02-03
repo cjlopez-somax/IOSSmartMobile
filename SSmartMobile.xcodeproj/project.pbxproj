@@ -21,6 +21,8 @@
 		092F4851258BB2CD00C58442 /* SSmartMobileUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092F4850258BB2CD00C58442 /* SSmartMobileUITests.swift */; };
 		0942610325C1E2F8000D79F8 /* DriveUtli.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0942610225C1E2F8000D79F8 /* DriveUtli.swift */; };
 		0942610825C1E764000D79F8 /* GpsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0942610725C1E764000D79F8 /* GpsResponse.swift */; };
+		096E97FF25C9DC87000FA6BE /* DBHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096E97FE25C9DC87000FA6BE /* DBHelper.swift */; };
+		096E980425C9EB7F000FA6BE /* GpsSqlite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096E980325C9EB7E000FA6BE /* GpsSqlite.swift */; };
 		097B271C25BF158400217F8B /* LoginResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097B271B25BF158400217F8B /* LoginResponseModel.swift */; };
 		097B272125BF16C300217F8B /* GeneralFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097B272025BF16C300217F8B /* GeneralFunctions.swift */; };
 		09980A2F25C06D45000C8E4C /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09980A2E25C06D45000C8E4C /* MapViewController.swift */; };
@@ -73,6 +75,8 @@
 		092F4852258BB2CD00C58442 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0942610225C1E2F8000D79F8 /* DriveUtli.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriveUtli.swift; sourceTree = "<group>"; };
 		0942610725C1E764000D79F8 /* GpsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GpsResponse.swift; sourceTree = "<group>"; };
+		096E97FE25C9DC87000FA6BE /* DBHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBHelper.swift; sourceTree = "<group>"; };
+		096E980325C9EB7E000FA6BE /* GpsSqlite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GpsSqlite.swift; sourceTree = "<group>"; };
 		097B271B25BF158400217F8B /* LoginResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseModel.swift; sourceTree = "<group>"; };
 		097B272025BF16C300217F8B /* GeneralFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralFunctions.swift; sourceTree = "<group>"; };
 		09980A2E25C06D45000C8E4C /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -160,6 +164,7 @@
 		092F482D258BB2CA00C58442 /* SSmartMobile */ = {
 			isa = PBXGroup;
 			children = (
+				096E97FD25C9DC73000FA6BE /* Sqlite */,
 				09CFE39D25923F4B002F5B1E /* Controllers */,
 				091B019825910545004FC1AF /* Models */,
 				091B01922591045F004FC1AF /* Utils */,
@@ -193,6 +198,15 @@
 				092F4852258BB2CD00C58442 /* Info.plist */,
 			);
 			path = SSmartMobileUITests;
+			sourceTree = "<group>";
+		};
+		096E97FD25C9DC73000FA6BE /* Sqlite */ = {
+			isa = PBXGroup;
+			children = (
+				096E97FE25C9DC87000FA6BE /* DBHelper.swift */,
+				096E980325C9EB7E000FA6BE /* GpsSqlite.swift */,
+			);
+			path = Sqlite;
 			sourceTree = "<group>";
 		};
 		09A1DC34258FC1F100BFEF9D /* Constantes */ = {
@@ -352,10 +366,12 @@
 				09CFE3AE259250AE002F5B1E /* ConfigUtil.swift in Sources */,
 				097B271C25BF158400217F8B /* LoginResponseModel.swift in Sources */,
 				09CFE3A425924156002F5B1E /* HttpInstance.swift in Sources */,
+				096E980425C9EB7F000FA6BE /* GpsSqlite.swift in Sources */,
 				09CFE3B325925642002F5B1E /* GpsInfoModel.swift in Sources */,
 				097B272125BF16C300217F8B /* GeneralFunctions.swift in Sources */,
 				0942610825C1E764000D79F8 /* GpsResponse.swift in Sources */,
 				0942610325C1E2F8000D79F8 /* DriveUtli.swift in Sources */,
+				096E97FF25C9DC87000FA6BE /* DBHelper.swift in Sources */,
 				091B01A025911E6F004FC1AF /* UserModel.swift in Sources */,
 				092F4833258BB2CA00C58442 /* ViewController.swift in Sources */,
 				09CFE39F25923FB3002F5B1E /* ConfigController.swift in Sources */,

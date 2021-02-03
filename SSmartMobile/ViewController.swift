@@ -13,35 +13,41 @@ import CoreLocation
 class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var UIButtonCall: UIButton!
     @IBOutlet weak var UIButtonEmail: UIButton!
+    @IBOutlet weak var gpsStateLabel: UILabel!
     
     private var locationManager = CLLocationManager()
     private var dateStartLocation: Date?
     private var dateEndLocation:Date?
     
-    private var lastDDDate:Date = VariablesUtil.getLastDateDetection()
+    private var lastDDDate:Date = GeneralFunctions.getCurrentTime()//VariablesUtil.getLastDateDetection()
     private var isGpsUpdatingForServer:Bool = false
     
     private let regionInMeters:Double = 500
     private var gpsMatrix = [GpsInfo] ()
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBackground()
         setupButtons()
-        
+        setupLabelGps()
         checkLocationServices()
-        
     }
+    
     
     
     @IBAction func callClick(_ sender: UIButton) {
+        
         if let url = URL(string: "tel://+56933874630") {
             UIApplication.shared.canOpenURL(url)
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        }
+        } 
     }
     
+   
     @IBAction func emailClick(_ sender: UIButton) {
         let email = "mesadeayuda@somax.cl"
         if let url = URL(string: "mailto:\(email)") {
@@ -53,7 +59,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    
+    func setupLabelGps(){
+        gpsStateLabel.isUserInteractionEnabled = true
+        let guestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(labelClicked(_:)))
+        gpsStateLabel.addGestureRecognizer(guestureRecognizer)
+    }
     func setupBackground(){
         overrideUserInterfaceStyle = .light
         let layer = CAGradientLayer()
@@ -63,6 +73,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         layer.endPoint = CGPoint(x:1,y:0.5)
         view.layer.insertSublayer(layer, at: 0)
     }
+    @objc func labelClicked(_ sender: Any) {
+            print("UILabel clicked")
+        DispatchQueue.main.async {
+            // show Alert turn on gps
+            let alert = UIAlertController(title: "GPS está apagado", message: "Para encender GPS ir a \n Settings/Privacy/Location Services \ny mueva el switch a ON", preferredStyle: .alert)
+
+
+            let cancelAction = UIAlertAction(title: "Aceptar", style: .default, handler: nil)
+
+            alert.addAction(cancelAction)
+
+            self.present(alert, animated: true, completion: nil)
+        }
+        }
     
     func setupButtons(){
         UIButtonCall.backgroundColor = "#E8B321".color
@@ -79,13 +103,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func checkLocationServices(){
+        initLocation()
         if CLLocationManager.locationServicesEnabled(){
-            initLocation()
             print("after init location")
-            checkLocationAuthorization()
+            checkLocationAuthorization(manager: false)
         }else{
-            // show Alert turn on gps
+            print("Location Disabled")
         }
+        
     }
     
     
@@ -98,24 +123,50 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.allowsBackgroundLocationUpdates = true
     }
     
-    func checkLocationAuthorization(){
-        print("Code status: \(CLLocationManager.authorizationStatus())")
+    func checkLocationAuthorization(manager:Bool){
         switch CLLocationManager.authorizationStatus() {
         case .authorizedAlways,
              .authorizedWhenInUse:
             startMySignificantLocationChanges()
-            //locationManager.startUpdatingLocation()
             break
         case .denied:
+            print("denied access")
+            if  CLLocationManager.locationServicesEnabled(){
+                print("entra a condicion")
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "El uso de GPS es necesario para obtener su actual posición", message: "Por favor permita el acceso a GPS Siempre", preferredStyle: .alert)
+                    let settingsAction = UIAlertAction(title: "Settings", style: .default, handler: {action in
+
+                                // open the app permission in Settings app
+                        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+                    })
+
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+
+                    alert.addAction(settingsAction)
+                    alert.addAction(cancelAction)
+                          
+                    alert.preferredAction = settingsAction
+
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
             break
         case .notDetermined:
             locationManager.requestAlwaysAuthorization()
+            
             break
         case .restricted:
             break
         default:
             print("enter to default")
             break
+        }
+        
+        if !CLLocationManager.locationServicesEnabled(){
+            showMessageGPSOff()
+        }else{
+            GPSOn()
         }
     }
     
@@ -133,46 +184,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         self.dateEndLocation = self.dateStartLocation?.addingTimeInterval(TimeInterval(timeGps))
     }
     
-    func locationManager(_ manager: CLLocationManager,  didUpdateLocations locations: [CLLocation]) {
-       let location = locations.last!
-        let latitude = location.coordinate.latitude
-        let longitude = location.coordinate.longitude
-        print("latitude: \(latitude ) - longitude: \(longitude)")
-        let currentDateTime = GeneralFunctions.getCurrentTime()
-        
-        if !self.isGpsUpdatingForServer {
-            
-            if checkSleepDay() ||
-                checkSleepTimeStart(current: currentDateTime) ||
-                checkSleepTimeEnd(current: currentDateTime) ||
-                checkDetectDrive3() ||
-                checkGpsDaily() ||
-                checkDD1Limit() ||
-                checkDD2Limit(){
-                print("return on check")
-                return
-            }
-            print("lastDDDate: \(lastDDDate)")
-            if currentDateTime >= self.lastDDDate{
-                print("lastDDDate es mayor")
-                startGps(currentDateTime:currentDateTime)
-            }
-            return
-        }
-        
-        print("recolectando datos")
-        let gpsInfo = GpsInfo(latitude: latitude, longitude: longitude, dateTime: currentDateTime)
-        self.gpsMatrix.append(gpsInfo)
-        if currentDateTime >= self.dateEndLocation!{
-            print("Diference is less")
-            sendDataToServer()
-            stopGps()
-        }
-    }
+    
     
     func sendDataToServer(){
-        let gpsData = GpsData(gpsMatrix: self.gpsMatrix, dateTimeStart: self.dateStartLocation, dateTimeEnd: self.dateEndLocation)
-        
+        let gpsData = GpsData(gpsMatrix: self.gpsMatrix, dateTimeStart: self.dateStartLocation?.getRFC3339Date(), dateTimeEnd: self.dateEndLocation?.getRFC3339Date(), lastDD: DriveUtil.getDetectDriveState())
         GpsController().post(gpsData: gpsData)
         self.gpsMatrix.removeAll()
     }
@@ -226,10 +241,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         return false
     }
     
-    func checkSleepTimeStart(current:Date)->Bool{
+    func checkSleepTimeStart(current:Date, gpsDataList: [GpsData])->Bool{
         let sleepTimeStart = ConfigUtil().getSleepTimeStart()
         if current >= sleepTimeStart{
             ConfigUtil().checkConfigUpdate()
+            if gpsDataList.count > 0 {
+                GpsSqlite.deleteTablesGps()
+            }
             return true
         }
         return false
@@ -265,14 +283,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         return false
     }
     
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-       if let error = error as? CLError, error.code == .denied {
-          // Location updates are not authorized.
-          manager.stopMonitoringSignificantLocationChanges()
-          return
-       }
-       // Notify the user of any errors.
-    }
+    
 
     
     func changeToDD3(){
@@ -295,8 +306,111 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        checkLocationAuthorization()
+    func showMessageGPSOff(){
+        print("GPS Off")
+        self.gpsStateLabel.isHidden = false
     }
+    
+    func GPSOn(){
+        print("GpsOn")
+        self.gpsStateLabel.isHidden = true
+    }
+    
+    func locationManager(_ manager: CLLocationManager,  didUpdateLocations locations: [CLLocation]) {
+       let location = locations.last!
+        let latitude = location.coordinate.latitude
+        let longitude = location.coordinate.longitude
+        print("latitude: \(latitude ) - longitude: \(longitude)")
+        let currentDateTime = GeneralFunctions.getCurrentTime()
+        print("currentDate: \(currentDateTime)")
+        let parseCurrentDate = currentDateTime.getRFC3339Date()
+        print("parseCurrentDate: \(parseCurrentDate)")
+        if !self.isGpsUpdatingForServer {
+            
+            if ConfigUtil().isPhoneInvalid(){
+                locationManager.stopMonitoringSignificantLocationChanges()
+                locationManager.stopUpdatingLocation()
+                goToLogin()
+            }
+            
+            let gpsDataList = GpsSqlite.getGpsData()
+            
+            if gpsDataList.count > 0 {
+                print("Data GPS pending exist")
+                GpsController().postGpsPending(gpsDataList: gpsDataList)
+            }else{
+                print("No data pending")
+            }
+            
+            if checkSleepDay() ||
+                checkSleepTimeStart(current: currentDateTime, gpsDataList: gpsDataList) ||
+                checkSleepTimeEnd(current: currentDateTime) ||
+                checkDetectDrive3() ||
+                checkGpsDaily() ||
+                checkDD1Limit() ||
+                checkDD2Limit(){
+                print("return on check")
+                return
+            }
+            print("lastDDDate: \(lastDDDate)")
+            if currentDateTime >= self.lastDDDate{
+                print("lastDDDate es mayor")
+                startGps(currentDateTime:currentDateTime)
+            }
+            return
+        }
+        
+        print("recolectando datos")
+        let gpsInfo = GpsInfo(latitude: latitude, longitude: longitude, dateTime: currentDateTime.getRFC3339Date())
+        self.gpsMatrix.append(gpsInfo)
+        if currentDateTime >= self.dateEndLocation!{
+            print("Diference is less")
+            sendDataToServer()
+            
+            stopGps()
+        }
+    }
+    
+    
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+       if let error = error as? CLError, error.code == .denied {
+        print("error")
+          // Location updates are not authorized.
+          manager.stopMonitoringSignificantLocationChanges()
+        if !CLLocationManager.locationServicesEnabled(){
+            showMessageGPSOff()
+        }else{
+            manager.requestAlwaysAuthorization()
+        }
+          return
+       }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        print("checkStatus")
+        
+        checkLocationAuthorization(manager:true)
+    }
+    
+    
+    
+    func goToLogin(){
+        
+        LoginUtil().logout()
+        ConfigUtil().saveConfig(config: Config())
+        
+        DispatchQueue.main.async {
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyBoard.instantiateViewController(withIdentifier: "login")
+            vc.modalPresentationStyle = .overFullScreen
+            self.present(vc, animated: true, completion: nil)
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        print("Pantalla desaparece")
+    }
+    
     
 }

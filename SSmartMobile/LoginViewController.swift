@@ -19,6 +19,9 @@ class LoginViewController: UIViewController, MFMailComposeViewControllerDelegate
     @IBOutlet var UIButtonEmail: UIButton!
     @IBOutlet var passwordInput: UITextField!
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +34,8 @@ class LoginViewController: UIViewController, MFMailComposeViewControllerDelegate
         view.layer.insertSublayer(layer, at: 0)
         if LoginUtil().isLogin() {
             self.goToMainActivity()
+        }else{
+            VariablesUtil.resetVariables()
         }
         
         UIButtonLogin.backgroundColor = "#E8B321".color

@@ -9,25 +9,28 @@
 import Foundation
 
 struct Config: Decodable {
-    var timeInterval: Int
-    var timeIntervalIOS: Int
-    var sampleRateGPS: Int
-    var timeGPS: Int
-    var timeAcc: Int
-    var timeAccPassenger: Int
-    var sleeptimeStart: String
-    var sleeptimeEnd: String
-    var sleepDays: String
-    var dailyAccAccess: Int
-    var dailyGPSAccess: Int
-    var detectDriveDuration: Int
-    var configUpdatePeriod: Int
-    var passengerLimitStart: Int
-    var passengerLimitStop: Int
-    var dd1TimesLimit: Int
-    var dd2TimesLimit: Int
+    var timeInterval: Int = DefaultConfigConstantes.TIME_INTERVAL_DEFAULT
+    var timeIntervalIOS: Int = 60
+    var sampleRateGPS: Int = DefaultConfigConstantes.SAMPLE_RATE_GPS_DEFAULT
+    var timeGPS: Int = DefaultConfigConstantes.TIME_GPS_DEFAULT
+    var timeAcc: Int = DefaultConfigConstantes.TIME_ACC_DEFAULT
+    var timeAccPassenger: Int = DefaultConfigConstantes.TIME_ACC_PASSENGER_DEFAULT
+    var sleeptimeStart: String = DefaultConfigConstantes.SLEEP_TIME_START_DEFAULT
+    var sleeptimeEnd: String = DefaultConfigConstantes.SLEEP_TIME_END_DEFAULT
+    var sleepDays: String = DefaultConfigConstantes.SLEEP_DAYS_DEFAULT
+    var dailyAccAccess: Int = DefaultConfigConstantes.DAILY_ACC_ACCESS_DEFAULT
+    var dailyGPSAccess: Int = DefaultConfigConstantes.DAILY_GPS_ACCESS_DEFAULT
+    var detectDriveDuration: Int = DefaultConfigConstantes.DETECT_DRIVE_DURATION_DEFAULT
+    var configUpdatePeriod: Int = DefaultConfigConstantes.CONFIG_UPDATE_PERIOD_DEFAULT
+    var passengerLimitStart: Int = DefaultConfigConstantes.PASSENGER_LIMIT_START_DEFAULT
+    var passengerLimitStop: Int = DefaultConfigConstantes.PASSENGER_LIMIT_STOP_DEFAULT
+    var dd1TimesLimit: Int = DefaultConfigConstantes.DD1_TIMES_LIMIT_DEFAULT
+    var dd2TimesLimit: Int = DefaultConfigConstantes.DD2_TIMES_LIMIT_DEFAULT
+    var phoneInvalid: Int = DefaultConfigConstantes.PHONE_INVALID_DEFAULT
     
-    var phoneInvalid: Int
+    init() {
+        
+    }
     
     enum CodingKeys: String, CodingKey {
         case timeInterval = "timeInterval"

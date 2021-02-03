@@ -47,6 +47,8 @@ class ConfigController{
                             print("ValidateConfig OK")
                             ConfigUtil().setLastConfigUpdateDate(date: GeneralFunctions.getCurrentTime())
                             ConfigUtil().saveConfig(config: config)
+                            
+                            
                         }else{
                             print("ValidaConfig Error")
                         }

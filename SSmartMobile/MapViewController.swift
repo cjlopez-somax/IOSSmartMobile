@@ -189,11 +189,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
         
         print("recolectando datos")
-        let gpsInfo = GpsInfo(latitude: latitude, longitude: longitude, dateTime: currentDateTime)
+        let gpsInfo = GpsInfo(latitude: latitude, longitude: longitude, dateTime: currentDateTime.getRFC3339Date())
         self.gpsMatrix.append(gpsInfo)
         if currentDateTime >= self.dateEndLocation!{
             print("Diference is less")
-            let gpsData = GpsData(gpsMatrix: self.gpsMatrix, dateTimeStart: self.dateStartLocation, dateTimeEnd: self.dateEndLocation)
+            let gpsData = GpsData(gpsMatrix: self.gpsMatrix, dateTimeStart: self.dateStartLocation?.getRFC3339Date(), dateTimeEnd: self.dateEndLocation?.getRFC3339Date(), lastDD:DriveUtil.getDetectDriveState())
             
             GpsController().post(gpsData: gpsData)
             self.gpsMatrix.removeAll()

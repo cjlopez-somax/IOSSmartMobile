@@ -13,9 +13,9 @@ struct GpsInfo:Codable{
     var longitude: Double?
     var dateTime: String?
     
-    init(latitude:Double? = nil, longitude:Double?=nil, dateTime: Date?=nil) {
+    init(latitude:Double? = nil, longitude:Double?=nil, dateTime: String) {
         self.latitude = latitude
         self.longitude = longitude
-        self.dateTime = dateTime?.getFormattedDate()
+        self.dateTime = dateTime
     }
 }

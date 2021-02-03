@@ -41,7 +41,7 @@ class ConfigUtil{
         let preferences = UserDefaults.standard
         let timeInterval = preferences.integer(forKey: Constantes.TIME_INTERVAL)
         print("timeInterval: \(timeInterval)")
-        let finalTimeInterval = timeInterval != 0 ? timeInterval : DefaultConfigConstantes.TIME_INTERVAL
+        let finalTimeInterval = timeInterval != 0 ? timeInterval : DefaultConfigConstantes.TIME_INTERVAL_DEFAULT
         return finalTimeInterval * 60
     }
     
@@ -190,6 +190,16 @@ class ConfigUtil{
         return true
     }
     
+    func isPhoneInvalid()->Bool{
+        let preferences = UserDefaults.standard
+        let phoneInvalid = preferences.integer(forKey: Constantes.PHONE_INVALID)
+        return phoneInvalid == 1
+    }
+    
+    func setPhoneInvalid(){
+        let preferences = UserDefaults.standard
+        preferences.set(1, forKey: Constantes.PHONE_INVALID)
+    }
     
 }
 

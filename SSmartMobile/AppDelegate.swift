@@ -45,5 +45,13 @@ extension Date {
     dateformat.dateFormat = format
     return dateformat.string(from: self)
     }
+    
+    func getRFC3339Date() -> String {
+     let format = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+     let dateformat = DateFormatter()
+     dateformat.timeZone = TimeZone(abbreviation: "UTC")
+     dateformat.dateFormat = format
+     return dateformat.string(from: self)
+     }
 }
 

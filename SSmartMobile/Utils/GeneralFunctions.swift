@@ -44,4 +44,5 @@ class GeneralFunctions: NSObject{
         let date = Date(timeInterval: seconds, since: date)
         return date;
     }
+    
 }

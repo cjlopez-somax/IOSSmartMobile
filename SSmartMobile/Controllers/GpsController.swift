@@ -14,7 +14,7 @@ class GpsController {
     }
     
     func post(gpsData: GpsData){
-        print("getConfig is called")
+        print("postData is called")
         let url = String( format : Constantes.SERVERBASE_URL + "flota/saveApplicationGps")
         guard let serviceUrl = URL(string: url) else { return }
         var urlRequest = URLRequest(url: serviceUrl)
@@ -24,12 +24,12 @@ class GpsController {
                 return
             }
         urlRequest.httpBody = httpBody
-        urlRequest.timeoutInterval = 20
+        urlRequest.timeoutInterval = 60
         let session = URLSession.shared
         session.dataTask(with: urlRequest) { (data, response, error) in
-            print("Error:  \(String(describing: error))")
             guard let data = data, let httpResponse = response as? HTTPURLResponse, error == nil else {
                 print("No valid response")
+                GpsSqlite.insertGpsData(gpsData: gpsData)
                 return
             }
             print("Code \(httpResponse.statusCode)" )
@@ -52,6 +52,47 @@ class GpsController {
                 
             }.resume()
         
+    }
+    
+    func postGpsPending(gpsDataList: [GpsData]){
+        print("postDataList is called")
+        let url = String( format : Constantes.SERVERBASE_URL + "flota/saveApplicationGpsHistory")
+        guard let serviceUrl = URL(string: url) else { return }
+        var urlRequest = URLRequest(url: serviceUrl)
+        urlRequest.httpMethod = "POST"
+        urlRequest.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+        guard let httpBody = try? JSONEncoder().encode(gpsDataList) else {
+                return
+            }
+        urlRequest.httpBody = httpBody
+        urlRequest.timeoutInterval = 60
+        let session = URLSession.shared
+        session.dataTask(with: urlRequest) { (data, response, error) in
+            guard let data = data, let httpResponse = response as? HTTPURLResponse, error == nil else {
+                print("No valid response Gps")
+                return
+            }
+            print("Code \(httpResponse.statusCode)" )
+            switch httpResponse.statusCode {
+                case 200:
+                    do {
+                        let gpsResponse = try JSONDecoder().decode(GpsResponse.self, from: data)
+                        print("gpsResponse: \(gpsResponse.respond)")
+                        //self.checkDetectDriveRespServer(respond: gpsResponse.respond)
+                        // Eliminar Datos de Gps
+                        GpsSqlite.deleteGpsPendingSaved(gpsDataList: gpsDataList)
+                    } catch {
+                        print(error)
+                    }
+                    print("GPS Pending Response OK")
+                
+                default:
+                    print("Error on response Pending")
+                    return
+            }
+            
+                
+            }.resume()
     }
     
     func checkDetectDriveRespServer(respond: Int){
