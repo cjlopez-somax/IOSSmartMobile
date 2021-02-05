@@ -27,6 +27,7 @@ struct Config: Decodable {
     var dd1TimesLimit: Int = DefaultConfigConstantes.DD1_TIMES_LIMIT_DEFAULT
     var dd2TimesLimit: Int = DefaultConfigConstantes.DD2_TIMES_LIMIT_DEFAULT
     var phoneInvalid: Int = DefaultConfigConstantes.PHONE_INVALID_DEFAULT
+    var sizeGpsIOs: Int = DefaultConfigConstantes.SIZE_GPS_IOS_DEFAULT
     
     init() {
         
@@ -52,6 +53,7 @@ struct Config: Decodable {
         case dd2TimesLimit = "dd2TimesLimit"
         
         case phoneInvalid = "phoneInvalid"
+        case sizeGpsIOs = "sizeGpsIOs"
         
         
     }

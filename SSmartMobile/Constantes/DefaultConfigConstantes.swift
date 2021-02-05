@@ -28,5 +28,7 @@ class DefaultConfigConstantes {
     static let DD2_TIMES_LIMIT_DEFAULT: Int = 10;
     static let PHONE_INVALID_DEFAULT: Int = 0;
     
+    static let SIZE_GPS_IOS_DEFAULT: Int = 5;
+    
  }
 

@@ -100,6 +100,7 @@ class VariablesUtil: NSObject{
     }
     
     class func setDetectDriveDate(){
+        print("setDetectDriveDate is called")
         let preferences = UserDefaults.standard
         let date = GeneralFunctions.getCurrentTime()
         preferences.set(date, forKey: Constantes.DETECT_DRIVE_DATE)
@@ -111,6 +112,7 @@ class VariablesUtil: NSObject{
     }
     
     class func getDetectDriveDate() -> Date{
+        print("getDetectDriveDate is called")
         let preferences = UserDefaults.standard
         var date = GeneralFunctions.getCurrentTime()
         if let dateStore = preferences.object(forKey: Constantes.DETECT_DRIVE_DATE) as? Date {

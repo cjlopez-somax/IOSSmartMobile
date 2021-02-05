@@ -34,6 +34,7 @@ class ConfigUtil{
         preferences.set(config.dd2TimesLimit, forKey: Constantes.DD2_TIMES_LIMIT)
         
         preferences.set(config.phoneInvalid, forKey: Constantes.PHONE_INVALID)
+        preferences.set(config.sizeGpsIOs, forKey: Constantes.SIZE_GPS_IOS)
     }
     
     func getTimeInterval() -> Int{
@@ -69,7 +70,6 @@ class ConfigUtil{
         for day in days! {
             intArraySleepDays.append(Int(day) ?? 0)
         }
-        print("sleepDays: \(intArraySleepDays)")
         return intArraySleepDays
     }
     
@@ -199,6 +199,14 @@ class ConfigUtil{
     func setPhoneInvalid(){
         let preferences = UserDefaults.standard
         preferences.set(1, forKey: Constantes.PHONE_INVALID)
+    }
+    
+    
+    func getSizeGpsIOs()->Int{
+        let preferences = UserDefaults.standard
+        let sizeGpsIOs = preferences.integer(forKey: Constantes.SIZE_GPS_IOS)
+        return sizeGpsIOs != 0 ? sizeGpsIOs : DefaultConfigConstantes.SIZE_GPS_IOS_DEFAULT
+        
     }
     
 }

@@ -105,9 +105,7 @@ class GpsController {
             }
             break
         case 1:
-            
             VariablesUtil.setDetectDriveDate()
-            
             if oldDetectDrive == 0 {
                 DriveUtil.setDetectDriveState(detectDriveState: respond)
                 VariablesUtil.setDD1Times(dd1Times: 1)

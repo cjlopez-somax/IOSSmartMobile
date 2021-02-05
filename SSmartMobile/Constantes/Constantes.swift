@@ -35,6 +35,9 @@ class Constantes {
     static let DD2_TIMES: String = "DD2Times";
     static let PHONE_INVALID: String = "phoneInvalid";
     
+    static let SIZE_GPS_IOS: String = "sizeGpsIOs";
+    
+    
     static let DETECT_DRIVE_DATE: String = "detectDriveDate";
     
     static let ID_USER: String = "idUser";
@@ -42,7 +45,7 @@ class Constantes {
     static let IS_LOGIN: String = "isLogin";
     
     
-    static let LAST_DATE_DETECTION: String = "detectDriveDate";
+    static let LAST_DATE_DETECTION: String = "lastDateDetection";
     static let LAST_CONFIG_UPDATE: String = "lastConfigUpdate";
  }
 

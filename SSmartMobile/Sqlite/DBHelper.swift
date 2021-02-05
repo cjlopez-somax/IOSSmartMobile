@@ -41,10 +41,8 @@ class DBHelper{
         var db :OpaquePointer? = nil
         
         if sqlite3_open(filePath.path, &db) != SQLITE_OK{
-            print("error")
             return nil
         }else{
-            print("database create at: \(path)")
             return db
         }
         
@@ -66,8 +64,6 @@ class DBHelper{
             }else{
                 print("table creationData failed")
             }
-        }else{
-            print("error on prepare v2Data")
         }
     }
     
@@ -87,8 +83,6 @@ class DBHelper{
             }else{
                 print("table creationData failed")
             }
-        }else{
-            print("error on prepare v2Info")
         }
     }
 }
