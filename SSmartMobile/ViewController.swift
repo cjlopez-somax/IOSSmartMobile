@@ -469,8 +469,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        locationManager.stopMonitoringSignificantLocationChanges()
-        print("Pantalla desaparece")
+        print("SmartMobile didDisappear")
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        print("SmartMobile will Disappear")
     }
     
     
