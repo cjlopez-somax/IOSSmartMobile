@@ -10,9 +10,14 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    //locationManagerDelegate = CLLocationManager()
+    //var locationManager = CLLocationManager()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        //locationManager.showsBackgroundLocationIndicator = false
+        
+        //locationManager.delegate = self
+        //locationManager.allowsBackgroundLocationUpdates = true
+        //locationManager.startMonitoringSignificantLocationChanges()
+        
         // Override point for customization after application launch.
         if(launchOptions?[UIApplication.LaunchOptionsKey.location] != nil) {
             print("Significant is called to relaunch app")
@@ -49,6 +54,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
+    
+    
+    /*func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("Location get coordenates")
+    } */
     
 }
 

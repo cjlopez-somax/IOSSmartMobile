@@ -33,6 +33,51 @@ struct Config: Decodable {
         
     }
     
+    init(timeInterval:Int, sampleRateGPS:Int, timeGPS: Int, timeAcc: Int, timeAccPassenger: Int, sleeptimeStart: String, sleeptimeEnd: String, sleepDays: String, dailyAccAccess: Int, dailyGPSAccess: Int, detectDriveDuration: Int, configUpdatePeriod: Int, passengerLimitStart: Int, passengerLimitStop:Int, dd1TimesLimit: Int, dd2TimesLimit: Int, phoneInvalid: Int, sizeGpsIOs: Int){
+        self.timeInterval = timeInterval
+        self.sampleRateGPS = sampleRateGPS
+        self.timeGPS = timeGPS
+        self.timeAcc = timeAcc
+        self.timeAccPassenger = timeAccPassenger
+        self.sleeptimeStart = sleeptimeStart
+        self.sleeptimeEnd = sleeptimeEnd
+        self.sleepDays = sleepDays
+        self.dailyAccAccess = dailyAccAccess
+        self.dailyGPSAccess = dailyGPSAccess
+        self.detectDriveDuration = detectDriveDuration
+        self.configUpdatePeriod = configUpdatePeriod
+        self.passengerLimitStart = passengerLimitStart
+        self.passengerLimitStop = passengerLimitStop
+        self.dd1TimesLimit = dd1TimesLimit
+        self.dd2TimesLimit = dd2TimesLimit
+        self.phoneInvalid = phoneInvalid
+        self.sizeGpsIOs = sizeGpsIOs
+        
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        timeInterval = Int( try values.decode(String.self, forKey: .timeInterval)) ?? DefaultConfigConstantes.TIME_INTERVAL_DEFAULT
+        sampleRateGPS = Int( try values.decode(String.self, forKey: .sampleRateGPS)) ?? DefaultConfigConstantes.SAMPLE_RATE_GPS_DEFAULT
+        timeGPS = Int( try values.decode(String.self, forKey: .timeGPS)) ?? DefaultConfigConstantes.TIME_GPS_DEFAULT
+        timeAcc = Int( try values.decode(String.self, forKey: .timeAcc)) ?? DefaultConfigConstantes.TIME_ACC_DEFAULT
+        timeAccPassenger = Int (try values.decode(String.self, forKey: .timeAccPassenger)) ?? DefaultConfigConstantes.TIME_ACC_PASSENGER_DEFAULT
+        sleeptimeStart = try values.decode(String.self, forKey: .sleeptimeStart)
+        sleeptimeEnd = try values.decode(String.self, forKey: .sleeptimeEnd)
+        sleepDays = try values.decode(String.self, forKey: .sleepDays)
+        dailyAccAccess = Int( try values.decode(String.self, forKey: .dailyAccAccess)) ?? DefaultConfigConstantes.DAILY_ACC_ACCESS_DEFAULT
+        dailyGPSAccess = Int( try values.decode(String.self, forKey: .dailyGPSAccess)) ?? DefaultConfigConstantes.DAILY_GPS_ACCESS_DEFAULT
+        detectDriveDuration = Int(try values.decode(String.self, forKey: .detectDriveDuration)) ?? DefaultConfigConstantes.DETECT_DRIVE_DURATION_DEFAULT
+        configUpdatePeriod = Int(try values.decode(String.self, forKey: .configUpdatePeriod)) ?? DefaultConfigConstantes.CONFIG_UPDATE_PERIOD_DEFAULT
+        passengerLimitStart = Int(try values.decode(String.self, forKey: .passengerLimitStart)) ?? DefaultConfigConstantes.PASSENGER_LIMIT_START_DEFAULT
+        passengerLimitStop = Int(try values.decode(String.self, forKey: .passengerLimitStop)) ?? DefaultConfigConstantes.PASSENGER_LIMIT_STOP_DEFAULT
+        dd1TimesLimit = Int(try values.decode(String.self, forKey: .dd1TimesLimit)) ?? DefaultConfigConstantes.DD1_TIMES_LIMIT_DEFAULT
+        dd2TimesLimit = Int(try values.decode(String.self, forKey: .dd2TimesLimit)) ?? DefaultConfigConstantes.DD2_TIMES_LIMIT_DEFAULT
+        phoneInvalid = Int(try values.decode(String.self, forKey: .phoneInvalid)) ?? DefaultConfigConstantes.PHONE_INVALID_DEFAULT
+        sizeGpsIOs = Int(try values.decode(String.self, forKey: .sizeGpsIOs)) ?? DefaultConfigConstantes.SIZE_GPS_IOS_DEFAULT
+        
+    }
+    
     enum CodingKeys: String, CodingKey {
         case timeInterval = "timeInterval"
         case timeIntervalIOS = "timeIntervalIOS"
