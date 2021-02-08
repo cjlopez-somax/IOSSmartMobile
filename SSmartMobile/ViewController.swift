@@ -390,14 +390,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         if currentDateTime >= lastDDDate{
             if lastLocation != nil{
                 let difference = location.timestamp.getDateTimeZone().timeIntervalSince(lastLocation!.timestamp.getDateTimeZone())
-                if difference <= 90 {
+                let minTimeBetweenLocationsIOs = ConfigUtil().getMinTimeBetweenLocationsIOs()
+                
+                if difference <= minTimeBetweenLocationsIOs || (minTimeBetweenLocationsIOs > 295 && minTimeBetweenLocationsIOs < 305){
                     let gpsInfo = GpsInfo(latitude: latitude, longitude: longitude, dateTime: currentDateTime.getRFC3339Date())
                     self.gpsMatrix.append(gpsInfo)
                     checkGpsMatrixForUpload(isLocationValid: true)
                 }else{
                     checkGpsMatrixForUpload(isLocationValid: false)
                 }
-                
+                print("minTimeConfig: \(minTimeBetweenLocationsIOs)")
                 print("difference between points: \(difference)")
                 
             }else{

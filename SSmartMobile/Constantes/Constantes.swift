@@ -9,8 +9,8 @@ import UIKit
 
 class Constantes {
     static let REQUEST_CODE_BACKGROUND: Int = 1992;
-    static let SERVERBASE_URL: String =  "https://bat.somax.cl/" //"https://ssmartmobile.herokuapp.com/"
-    
+    //static let SERVERBASE_URL: String =  "https://bat.somax.cl/"
+    static let SERVERBASE_URL: String =  "https://ssmartmobile.herokuapp.com/"
     static let TIME_INTERVAL:String = "timeInterval"
     static let SAMPLE_RATE_GPS: String = "sampleRateGPS"
     static let TIME_GPS: String = "timeGPS"
@@ -36,6 +36,8 @@ class Constantes {
     static let PHONE_INVALID: String = "phoneInvalid"
     
     static let SIZE_GPS_IOS: String = "sizeGpsIOs"
+    static let MIN_TIME_BETWEEN_LOCATIONS_IOS: String = "minTimeBetweenLocationsIOs"
+    
     
     
     static let DETECT_DRIVE_DATE: String = "detectDriveDate"

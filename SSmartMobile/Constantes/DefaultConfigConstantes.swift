@@ -30,5 +30,7 @@ class DefaultConfigConstantes {
     
     static let SIZE_GPS_IOS_DEFAULT: Int = 5;
     
+    static let MIN_TIME_BETWEEN_LOCATIONS_IOS: Int = 90
+    
  }
 

@@ -19,22 +19,17 @@ class ConfigUtil{
         preferences.set(config.timeInterval, forKey: Constantes.TIME_INTERVAL)
         preferences.set(config.sampleRateGPS, forKey: Constantes.SAMPLE_RATE_GPS)
         preferences.set(config.timeGPS, forKey: Constantes.TIME_GPS)
-        preferences.set(config.timeAcc, forKey: Constantes.TIME_ACC)
-        preferences.set(config.timeAccPassenger, forKey: Constantes.TIME_ACC_PASSENGER)
         preferences.set(config.sleeptimeStart, forKey: Constantes.SLEEP_TIME_START)
         preferences.set(config.sleeptimeEnd, forKey: Constantes.SLEEP_TIME_END)
         preferences.set(config.sleepDays, forKey: Constantes.SLEEP_DAYS)
-        preferences.set(config.dailyAccAccess, forKey: Constantes.DAILY_ACC_ACCESS)
         preferences.set(config.dailyGPSAccess, forKey: Constantes.DAILY_GPS_ACCESS)
         preferences.set(config.detectDriveDuration, forKey: Constantes.DETECT_DRIVE_DURATION)
-        preferences.set(config.configUpdatePeriod, forKey: Constantes.CONFIG_UPDATE_PERIOD)
-        preferences.set(config.passengerLimitStart, forKey: Constantes.PASSENGER_LIMIT_START)
-        preferences.set(config.passengerLimitStop, forKey: Constantes.PASSENGER_LIMIT_STOP)
         preferences.set(config.dd1TimesLimit, forKey: Constantes.DD1_TIMES_LIMIT)
         preferences.set(config.dd2TimesLimit, forKey: Constantes.DD2_TIMES_LIMIT)
         
         preferences.set(config.phoneInvalid, forKey: Constantes.PHONE_INVALID)
         preferences.set(config.sizeGpsIOs, forKey: Constantes.SIZE_GPS_IOS)
+        preferences.set(config.minTimeBetweenLocationsIOs, forKey: Constantes.MIN_TIME_BETWEEN_LOCATIONS_IOS)
     }
     
     func getTimeInterval() -> Int{
@@ -206,6 +201,13 @@ class ConfigUtil{
         let preferences = UserDefaults.standard
         let sizeGpsIOs = preferences.integer(forKey: Constantes.SIZE_GPS_IOS)
         return sizeGpsIOs != 0 ? sizeGpsIOs : DefaultConfigConstantes.SIZE_GPS_IOS_DEFAULT
+        
+    }
+    
+    func getMinTimeBetweenLocationsIOs()->Double{
+        let preferences = UserDefaults.standard
+        let minTimeBetweenLocationsIOs = preferences.integer(forKey: Constantes.MIN_TIME_BETWEEN_LOCATIONS_IOS)
+        return Double(minTimeBetweenLocationsIOs != 0 ? minTimeBetweenLocationsIOs : DefaultConfigConstantes.MIN_TIME_BETWEEN_LOCATIONS_IOS)
         
     }
     
