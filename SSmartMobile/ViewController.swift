@@ -392,7 +392,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 let difference = location.timestamp.getDateTimeZone().timeIntervalSince(lastLocation!.timestamp.getDateTimeZone())
                 let minTimeBetweenLocationsIOs = ConfigUtil().getMinTimeBetweenLocationsIOs()
                 
-                if difference <= minTimeBetweenLocationsIOs || (minTimeBetweenLocationsIOs > 295 && minTimeBetweenLocationsIOs < 305){
+                if difference <= minTimeBetweenLocationsIOs || (difference > 295 && difference < 305){
                     let gpsInfo = GpsInfo(latitude: latitude, longitude: longitude, dateTime: currentDateTime.getRFC3339Date())
                     self.gpsMatrix.append(gpsInfo)
                     checkGpsMatrixForUpload(isLocationValid: true)
