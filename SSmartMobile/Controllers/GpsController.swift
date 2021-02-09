@@ -17,8 +17,12 @@ class GpsController {
         print("postData is called")
         textLog.write("postData is called")
         let url = String( format : Constantes.SERVERBASE_URL + "flota/saveApplicationGps")
-        guard let serviceUrl = URL(string: url) else { return }
-        var urlRequest = URLRequest(url: serviceUrl)
+        let urlComponents = NSURLComponents(string: url)!
+        urlComponents.queryItems = [
+            URLQueryItem(name: "id", value: LoginUtil().getIdUser()),
+            URLQueryItem(name: "pass", value: LoginUtil().getPassword()),
+        ]
+        var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "POST"
         urlRequest.setValue("Application/json", forHTTPHeaderField: "Content-Type")
         guard let httpBody = try? JSONEncoder().encode(gpsData) else {
@@ -64,8 +68,12 @@ class GpsController {
         print("postDataList is called")
         textLog.write("postDataList is called")
         let url = String( format : Constantes.SERVERBASE_URL + "flota/saveApplicationGpsHistory")
-        guard let serviceUrl = URL(string: url) else { return }
-        var urlRequest = URLRequest(url: serviceUrl)
+        let urlComponents = NSURLComponents(string: url)!
+        urlComponents.queryItems = [
+            URLQueryItem(name: "id", value: LoginUtil().getIdUser()),
+            URLQueryItem(name: "pass", value: LoginUtil().getPassword()),
+        ]
+        var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "POST"
         urlRequest.setValue("Application/json", forHTTPHeaderField: "Content-Type")
         guard let httpBody = try? JSONEncoder().encode(gpsDataList) else {
