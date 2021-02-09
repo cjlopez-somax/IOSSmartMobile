@@ -399,8 +399,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 }else{
                     checkGpsMatrixForUpload(isLocationValid: false)
                 }
-                print("minTimeConfig: \(minTimeBetweenLocationsIOs)")
-                print("difference between points: \(difference)")
+                print("minTimeConfig: \(minTimeBetweenLocationsIOs) seconds")
+                print("difference between points: \(difference) seconds")
                 
             }else{
                 let gpsInfo = GpsInfo(latitude: latitude, longitude: longitude, dateTime: currentDateTime.getRFC3339Date())
