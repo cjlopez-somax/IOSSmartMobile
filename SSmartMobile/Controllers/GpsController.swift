@@ -15,6 +15,7 @@ class GpsController {
     
     func post(gpsData: GpsData){
         print("postData is called")
+        textLog.write("postData is called")
         let url = String( format : Constantes.SERVERBASE_URL + "flota/saveApplicationGps")
         guard let serviceUrl = URL(string: url) else { return }
         var urlRequest = URLRequest(url: serviceUrl)
@@ -29,23 +30,28 @@ class GpsController {
         session.dataTask(with: urlRequest) { (data, response, error) in
             guard let data = data, let httpResponse = response as? HTTPURLResponse, error == nil else {
                 print("No valid response")
+                textLog.write("No valid response")
                 GpsSqlite.insertGpsData(gpsData: gpsData)
                 return
             }
-            print("Code \(httpResponse.statusCode)" )
+            print("Code \(httpResponse.statusCode)")
+            textLog.write("Code \(httpResponse.statusCode)")
             switch httpResponse.statusCode {
                 case 200:
                     do {
                         let gpsResponse = try JSONDecoder().decode(GpsResponse.self, from: data)
                         print("gpsResponse: \(gpsResponse.respond)")
+                        textLog.write("gpsResponse: \(gpsResponse.respond)")
                         self.checkDetectDriveRespServer(respond: gpsResponse.respond)
                     } catch {
                         print(error)
                     }
                     print("GPS Guardado")
+                    textLog.write("GPS Guardado")
                 
                 default:
                     print("Error on response")
+                    textLog.write("Error on response")
                     return
             }
             
@@ -56,6 +62,7 @@ class GpsController {
     
     func postGpsPending(gpsDataList: [GpsData]){
         print("postDataList is called")
+        textLog.write("postDataList is called")
         let url = String( format : Constantes.SERVERBASE_URL + "flota/saveApplicationGpsHistory")
         guard let serviceUrl = URL(string: url) else { return }
         var urlRequest = URLRequest(url: serviceUrl)
@@ -69,7 +76,7 @@ class GpsController {
         let session = URLSession.shared
         session.dataTask(with: urlRequest) { (data, response, error) in
             guard let data = data, let httpResponse = response as? HTTPURLResponse, error == nil else {
-                print("No valid response Gps")
+                print("No valid response Gps", to:&textLog)
                 return
             }
             print("Code \(httpResponse.statusCode)" )
@@ -78,6 +85,7 @@ class GpsController {
                     do {
                         let gpsResponse = try JSONDecoder().decode(GpsResponse.self, from: data)
                         print("gpsResponse: \(gpsResponse.respond)")
+                        textLog.write("gpsResponse: \(gpsResponse.respond)")
                         //self.checkDetectDriveRespServer(respond: gpsResponse.respond)
                         // Eliminar Datos de Gps
                         GpsSqlite.deleteGpsPendingSaved(gpsDataList: gpsDataList)
@@ -88,6 +96,7 @@ class GpsController {
                 
                 default:
                     print("Error on response Pending")
+                    textLog.write("Error on response Pending")
                     return
             }
             
@@ -117,6 +126,7 @@ class GpsController {
                 // Change to DD3
                 DriveUtil.setDetectDriveState(detectDriveState: 3)
                 print("ChangeToDD3 from respond 1 and oldDetectDrive 2")
+                textLog.write("ChangeToDD3 from respond 1 and oldDetectDrive 2")
             }
             break
         case 2:
@@ -133,6 +143,7 @@ class GpsController {
             // Change To DD3
             DriveUtil.setDetectDriveState(detectDriveState: 3)
             print("ChangeToDD3 from respond 3")
+            textLog.write("ChangeToDD3 from respond 3")
             break
         default:
             break

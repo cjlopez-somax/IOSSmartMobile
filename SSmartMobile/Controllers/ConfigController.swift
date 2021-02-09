@@ -16,6 +16,7 @@ class ConfigController{
     
     func getConfig(){
         print("getConfig is called")
+        textLog.write("getConfig is called")
         let url = String( format : Constantes.SERVERBASE_URL + "flota/getApplicationsSetting")
         let urlComponents = NSURLComponents(string: url)!
         urlComponents.queryItems = [
@@ -36,6 +37,7 @@ class ConfigController{
             print("Error:  \(String(describing: error))")
             guard let data = data, let httpResponse = response as? HTTPURLResponse, error == nil else {
                 print("No valid response")
+                textLog.write("No valid response")
                 return
             }
             switch httpResponse.statusCode {
@@ -45,16 +47,19 @@ class ConfigController{
                         
                         if ConfigUtil().validateConfig(config: config){
                             print("ValidateConfig OK")
+                            textLog.write("ValidateConfig OK")
                             ConfigUtil().setLastConfigUpdateDate(date: GeneralFunctions.getCurrentTime())
                             ConfigUtil().saveConfig(config: config)
                             
                             
                         }else{
                             print("ValidaConfig Error")
+                            textLog.write("ValidaConfig Error")
                         }
                         
                         
                         print(config)
+                        textLog.write("\(config)")
                     } catch {
                         print(error)
                     }

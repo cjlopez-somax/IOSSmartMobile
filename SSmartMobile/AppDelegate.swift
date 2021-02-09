@@ -8,23 +8,27 @@
 
 import UIKit
 
+
+var textLog = TextLog()
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     //var locationManager = CLLocationManager()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+        print("init SmartMobile")
+        textLog.write("InitSmarMobile")
         //locationManager.delegate = self
         //locationManager.allowsBackgroundLocationUpdates = true
         //locationManager.startMonitoringSignificantLocationChanges()
         
         // Override point for customization after application launch.
         if(launchOptions?[UIApplication.LaunchOptionsKey.location] != nil) {
-            print("Significant is called to relaunch app")
+            //print("Significant is called to relaunch app")
             // handle new location that was sent, but don't launch the rest of the application
 
         } else {
-            print("Launch app not for locationSignificant")
+            //print("Launch app not for locationSignificant")
             // do all the regular stuff, such as setting keyWindow etc
 
         }

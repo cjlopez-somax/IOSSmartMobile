@@ -19,6 +19,7 @@
 		092F483B258BB2CD00C58442 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 092F4839258BB2CD00C58442 /* LaunchScreen.storyboard */; };
 		092F4846258BB2CD00C58442 /* SSmartMobileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092F4845258BB2CD00C58442 /* SSmartMobileTests.swift */; };
 		092F4851258BB2CD00C58442 /* SSmartMobileUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092F4850258BB2CD00C58442 /* SSmartMobileUITests.swift */; };
+		09409DF625D2D4B200C7E03C /* TestUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09409DF525D2D4B200C7E03C /* TestUtil.swift */; };
 		0942610325C1E2F8000D79F8 /* DriveUtli.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0942610225C1E2F8000D79F8 /* DriveUtli.swift */; };
 		0942610825C1E764000D79F8 /* GpsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0942610725C1E764000D79F8 /* GpsResponse.swift */; };
 		096E97FF25C9DC87000FA6BE /* DBHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096E97FE25C9DC87000FA6BE /* DBHelper.swift */; };
@@ -72,6 +73,7 @@
 		092F484C258BB2CD00C58442 /* SSmartMobileUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SSmartMobileUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		092F4850258BB2CD00C58442 /* SSmartMobileUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSmartMobileUITests.swift; sourceTree = "<group>"; };
 		092F4852258BB2CD00C58442 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		09409DF525D2D4B200C7E03C /* TestUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtil.swift; sourceTree = "<group>"; };
 		0942610225C1E2F8000D79F8 /* DriveUtli.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriveUtli.swift; sourceTree = "<group>"; };
 		0942610725C1E764000D79F8 /* GpsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GpsResponse.swift; sourceTree = "<group>"; };
 		096E97FE25C9DC87000FA6BE /* DBHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBHelper.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				097B272025BF16C300217F8B /* GeneralFunctions.swift */,
 				0942610225C1E2F8000D79F8 /* DriveUtli.swift */,
 				09E08F6425C2FE0400187D43 /* VariablesUtil.swift */,
+				09409DF525D2D4B200C7E03C /* TestUtil.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09409DF625D2D4B200C7E03C /* TestUtil.swift in Sources */,
 				09CFE3BB25925A39002F5B1E /* GpsDataModel.swift in Sources */,
 				091B018E2590F7DA004FC1AF /* LoginViewController.swift in Sources */,
 				09CFE3A925924DEE002F5B1E /* ConfigModel.swift in Sources */,

@@ -231,6 +231,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         if !CLLocationManager.significantLocationChangeMonitoringAvailable() {
             // The device does not support this service.
             print("Device does not support service for SignificantChangeMonitoring")
+            textLog.write("Device does not support service for SignificantChangeMonitoring")
             return
         }
         locationManager.startMonitoringSignificantLocationChanges()
@@ -249,6 +250,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let detectDriveState = DriveUtil.getDetectDriveState()
         if detectDriveState == 3 {
             print("DetectDrive 3 is detect")
+            textLog.write("DetectDrive 3 is detect")
             changeToDD3()
             return true
         }
@@ -259,6 +261,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     func checkSleepDay()->Bool{
         if ConfigUtil().isSleepDay(){
             print("SleepDay is detect")
+            textLog.write("SleepDay is detect")
             return true
         }
         return false
@@ -291,6 +294,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             
             VariablesUtil.resetVariables()
             print("Máximo Gps Daily")
+            textLog.write("Máximo Gps Daily")
             return true
         }
         return false
@@ -300,6 +304,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         if VariablesUtil.isMaxDD1Times(){
             changeToDD3()
             print("Máximo DD1 Daily")
+            textLog.write("Máximo DD1 Daily")
             return true
         }
         return false
@@ -309,6 +314,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         if VariablesUtil.isMaxDD2Times(){
             changeToDD3()
             print("Máximo DD2 Daily")
+            textLog.write("Máximo DD2 Daily")
             return true
         }
         return false
@@ -318,11 +324,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 
     
     func changeToDD3(){
+        textLog.write("changeToDD3 is called")
         let detectDriveDuration = ConfigUtil().getDetectDriveDuration()
         let detectDriveDateSaved = VariablesUtil.getDetectDriveDate()
         print("detectDriveDateSaved: \(detectDriveDateSaved)")
         let dateDetectDrive = detectDriveDateSaved.addingTimeInterval(TimeInterval(detectDriveDuration))
         print("dateDetectDrive: \(dateDetectDrive)")
+        textLog.write("dateDetectDrive: \(dateDetectDrive)")
         let dateSleepTimeStart = ConfigUtil().getSleepTimeStart()
         print("dateSleepTimeStart: \(dateSleepTimeStart)")
         if dateDetectDrive >= dateSleepTimeStart {
@@ -334,7 +342,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             DriveUtil.setDetectDriveState(detectDriveState: 0)
         }
         VariablesUtil.setLastDateDetection(date: self.lastDDDate)
-        
+        textLog.write("nextCollectingGpsDate: \(self.lastDDDate)")
     }
     
     
@@ -349,16 +357,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager,  didUpdateLocations locations: [CLLocation]) {
-       let location = locations.last!
+        print("Locations count: \(locations.count) ")
+        textLog.write("Locations count: \(locations.count) ")
+        let location = locations.last!
         let latitude = location.coordinate.latitude
         let longitude = location.coordinate.longitude
         print("latitude: \(latitude ) - longitude: \(longitude)")
+        textLog.write("latitude: \(latitude ) - longitude: \(longitude)")
         let currentDateTime = GeneralFunctions.getCurrentTime()
         print("currentDate: \(currentDateTime)")
+        textLog.write("currentDate: \(currentDateTime)")
         print("lastDDDate: \(self.lastDDDate)")
-        let detectDriveDate = VariablesUtil.getDetectDriveDate()
-        print("detectDriveDate: \(detectDriveDate)")
+        textLog.write("lastDDDate: \(self.lastDDDate)")
         if ConfigUtil().isPhoneInvalid(){
+            textLog.write("phone is invalid")
             locationManager.stopMonitoringSignificantLocationChanges()
             goToLogin()
         }
@@ -367,6 +379,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
         if gpsDataList.count > 0 {
             print("Data GPS pending exist")
+            textLog.write("Data GPS pending exist")
             GpsController().postGpsPending(gpsDataList: gpsDataList)
         }else{
             print("No data pending")
@@ -380,6 +393,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             checkDD1Limit() ||
             checkDD2Limit(){
             print("return on check")
+            textLog.write("Return on checking")
             return
         }
         
@@ -391,6 +405,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             if lastLocation != nil{
                 let difference = location.timestamp.getDateTimeZone().timeIntervalSince(lastLocation!.timestamp.getDateTimeZone())
                 let minTimeBetweenLocationsIOs = ConfigUtil().getMinTimeBetweenLocationsIOs()
+                print("minTimeConfig: \(minTimeBetweenLocationsIOs) seconds")
+                print("difference between points: \(difference) seconds")
+                textLog.write("difference between points: \(difference) seconds")
+                let distanceBetweenLocations = lastLocation?.distance(from: location).magnitude
+                print("Distance between points: \(String(describing: distanceBetweenLocations)) meters")
+                textLog.write("Distance between points: \(String(describing: distanceBetweenLocations)) meters")
                 
                 if difference <= minTimeBetweenLocationsIOs || (difference > 300 && difference < 400){
                     let gpsInfo = GpsInfo(latitude: latitude, longitude: longitude, dateTime: currentDateTime.getRFC3339Date())
@@ -399,16 +419,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 }else{
                     checkGpsMatrixForUpload(isLocationValid: false)
                 }
-                print("minTimeConfig: \(minTimeBetweenLocationsIOs) seconds")
-                print("difference between points: \(difference) seconds")
+                
                 
             }else{
                 let gpsInfo = GpsInfo(latitude: latitude, longitude: longitude, dateTime: currentDateTime.getRFC3339Date())
                 self.gpsMatrix.append(gpsInfo)
             }
             print("size gpsMatrix: \(gpsMatrix.count)")
+            textLog.write("size gpsMatrix: \(gpsMatrix.count)")
             lastLocation = location
             print("Dato verificado")
+            textLog.write("Dato verificado")
         }
         
     }
@@ -466,6 +487,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func resetVariablesLocations(){
+        print("reset gpsMatrix and lastLocation")
+        textLog.write("reset gpsMatrix and lastLocation")
         lastLocation = nil
         self.gpsMatrix.removeAll()
     }
