@@ -418,6 +418,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     checkGpsMatrixForUpload(isLocationValid: true)
                 }else{
                     checkGpsMatrixForUpload(isLocationValid: false)
+                    let gpsInfo = GpsInfo(latitude: latitude, longitude: longitude, dateTime: currentDateTime.getRFC3339Date())
+                    self.gpsMatrix.append(gpsInfo)
                 }
                 
                 
