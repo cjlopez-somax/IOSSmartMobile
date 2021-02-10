@@ -244,7 +244,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let dataTimeStart = gpsMatrix.first?.dateTime
         let gpsData = GpsData(gpsMatrix: self.gpsMatrix, dateTimeStart: dataTimeStart, dateTimeEnd: GeneralFunctions.getCurrentTime().getRFC3339Date(), lastDD: DriveUtil.getDetectDriveState())
         GpsController().post(gpsData: gpsData)
-        resetVariablesLocations()
+        //resetVariablesLocations()
     }
     
 
