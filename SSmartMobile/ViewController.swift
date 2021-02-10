@@ -25,6 +25,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     private var lastLocation:CLLocation?
     
+    private let minLimitSpeed = 1.38
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -342,6 +344,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             DriveUtil.setDetectDriveState(detectDriveState: 0)
         }
         VariablesUtil.setLastDateDetection(date: self.lastDDDate)
+        VariablesUtil.clearDetectDriveDate()
         textLog.write("nextCollectingGpsDate: \(self.lastDDDate)")
     }
     
@@ -402,6 +405,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
         
         if currentDateTime >= lastDDDate{
+            
+            var gpsInfo = GpsInfo(latitude: latitude, longitude: longitude, dateTime: currentDateTime.getRFC3339Date(), speed: 0)
+            
             if lastLocation != nil{
                 let difference = location.timestamp.getDateTimeZone().timeIntervalSince(lastLocation!.timestamp.getDateTimeZone())
                 let minTimeBetweenLocationsIOs = ConfigUtil().getMinTimeBetweenLocationsIOs()
@@ -411,7 +417,37 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 let distanceBetweenLocations = lastLocation?.distance(from: location).magnitude
                 print("Distance between points: \(String(describing: distanceBetweenLocations)) meters")
                 textLog.write("Distance between points: \(String(describing: distanceBetweenLocations)) meters")
+                let speed = distanceBetweenLocations! / difference
+                print("Speed between locations: \(speed)")
+                textLog.write("Speed between locations: \(speed)")
+                if difference >= 900{
+                    resetVariablesLocations()
+                    
+                }else{
+                    if speed <= minLimitSpeed{
+                        let lastSpeed = (gpsMatrix.last?.speed) ?? 0
+                        if lastSpeed == 0 || lastSpeed > minLimitSpeed{
+                            gpsInfo.speed = speed
+                        }else{
+                            let meanSpeedMatrix = getMeanSpeedMatrix()
+                            if meanSpeedMatrix == 0 || meanSpeedMatrix > minLimitSpeed{
+                                gpsInfo.speed = speed
+                            }else{
+                                resetVariablesLocations()
+                            }
+                        }
+                        
+                    }else{
+                        gpsInfo.speed = speed
+                        
+                    }
+                    
+                }
                 
+                
+                
+                
+                /*
                 if difference <= minTimeBetweenLocationsIOs || (difference > 300 && difference < 400){
                     let gpsInfo = GpsInfo(latitude: latitude, longitude: longitude, dateTime: currentDateTime.getRFC3339Date())
                     self.gpsMatrix.append(gpsInfo)
@@ -420,22 +456,34 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     checkGpsMatrixForUpload(isLocationValid: false)
                     let gpsInfo = GpsInfo(latitude: latitude, longitude: longitude, dateTime: currentDateTime.getRFC3339Date())
                     self.gpsMatrix.append(gpsInfo)
-                }
+                } */
                 
                 
-            }else{
-                let gpsInfo = GpsInfo(latitude: latitude, longitude: longitude, dateTime: currentDateTime.getRFC3339Date())
-                self.gpsMatrix.append(gpsInfo)
             }
+            self.gpsMatrix.append(gpsInfo)
             print("size gpsMatrix: \(gpsMatrix.count)")
             textLog.write("size gpsMatrix: \(gpsMatrix.count)")
             lastLocation = location
             print("Dato verificado")
             textLog.write("Dato verificado")
+            
+            checkGpsMatrixForUpload()
+            
+            //print("size gpsMatrix: \(gpsMatrix.count)")
+            //textLog.write("size gpsMatrix: \(gpsMatrix.count)")
+            
         }
         
     }
     
+    func getMeanSpeedMatrix()->Double{
+        var sumSpeed:Double = 0
+        for gpsInfo in self.gpsMatrix{
+            sumSpeed += gpsInfo.speed!
+        }
+        
+        return sumSpeed / Double((gpsMatrix.count - 1))
+    }
     
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -473,7 +521,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    func checkGpsMatrixForUpload(isLocationValid:Bool){
+    func checkGpsMatrixForUpload(){
         let sizeGpsIOs = ConfigUtil().getSizeGpsIOs()
         print("sizeGpsIOs: \(sizeGpsIOs)")
         if gpsMatrix.count >= sizeGpsIOs {
@@ -481,8 +529,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             let timeInterval = ConfigUtil().getTimeInterval()
             self.lastDDDate = GeneralFunctions.getCurrentTime().addingTimeInterval(TimeInterval(timeInterval))
             VariablesUtil.setLastDateDetection(date:self.lastDDDate)
-        }
-        if !isLocationValid {
             resetVariablesLocations()
         }
         

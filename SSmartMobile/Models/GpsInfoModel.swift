@@ -12,10 +12,12 @@ struct GpsInfo:Codable{
     var latitude: Double?
     var longitude: Double?
     var dateTime: String?
+    var speed:Double?
     
-    init(latitude:Double? = nil, longitude:Double?=nil, dateTime: String) {
+    init(latitude:Double? = nil, longitude:Double?=nil, dateTime: String, speed:Double?) {
         self.latitude = latitude
         self.longitude = longitude
         self.dateTime = dateTime
+        self.speed = speed
     }
 }

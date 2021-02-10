@@ -112,7 +112,7 @@ class GpsSqlite: NSObject {
                 let latitude =  String(cString: sqlite3_column_text(getStatementQueryInfo, 3))
                 let longitude = String(cString: sqlite3_column_text(getStatementQueryInfo, 4))
                 
-                let gpsInfo = GpsInfo(latitude: Double(latitude), longitude: Double(longitude), dateTime: dateTime)
+                let gpsInfo = GpsInfo(latitude: Double(latitude), longitude: Double(longitude), dateTime: dateTime, speed:0)
                 gpsMatrix.append(gpsInfo)
                 
                 // Buscar gpsInfoCon ID GPASDATA
