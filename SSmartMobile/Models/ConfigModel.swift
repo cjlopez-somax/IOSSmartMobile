@@ -22,7 +22,7 @@ struct Config: Decodable {
     var phoneInvalid: Int = DefaultConfigConstantes.PHONE_INVALID_DEFAULT
     var sizeGpsIOs: Int = DefaultConfigConstantes.SIZE_GPS_IOS_DEFAULT
     
-    var minTimeBetweenLocationsIOs: Int = DefaultConfigConstantes.MIN_TIME_BETWEEN_LOCATIONS_IOS
+    var minLimitSpeedIOs: Double = DefaultConfigConstantes.MIN_LIMIT_SPEED_IOS_DEFAULT
     
     init() {
         
@@ -100,10 +100,10 @@ struct Config: Decodable {
             sizeGpsIOs = Int(try values.decode(String.self, forKey: .sizeGpsIOs)) ?? DefaultConfigConstantes.SIZE_GPS_IOS_DEFAULT
         }
         
-        if let minTimeBetweenLocationsIOsTemp = try? values.decodeIfPresent(Int.self, forKey: .minTimeBetweenLocationsIOs) {
-            minTimeBetweenLocationsIOs = minTimeBetweenLocationsIOsTemp
+        if let minLimitSpeedIOsTemp = try? values.decodeIfPresent(Double.self, forKey: .minLimitSpeedIOs) {
+            minLimitSpeedIOs = minLimitSpeedIOsTemp
         }else{
-            minTimeBetweenLocationsIOs = Int(try (values.decodeIfPresent(String.self, forKey: .minTimeBetweenLocationsIOs) ?? String(DefaultConfigConstantes.MIN_TIME_BETWEEN_LOCATIONS_IOS))) ?? DefaultConfigConstantes.MIN_TIME_BETWEEN_LOCATIONS_IOS
+            minLimitSpeedIOs = Double(try (values.decodeIfPresent(String.self, forKey: .minLimitSpeedIOs) ?? String(DefaultConfigConstantes.MIN_LIMIT_SPEED_IOS_DEFAULT))) ?? DefaultConfigConstantes.MIN_LIMIT_SPEED_IOS_DEFAULT
         }
         
     }
@@ -122,7 +122,7 @@ struct Config: Decodable {
         
         case phoneInvalid = "phoneInvalid"
         case sizeGpsIOs = "sizeGpsIOs"
-        case minTimeBetweenLocationsIOs = "minTimeBetweenLocationsIOs"
+        case minLimitSpeedIOs = "minLimitSpeedIOs"
         
         
     }

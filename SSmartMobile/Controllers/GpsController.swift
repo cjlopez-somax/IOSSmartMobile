@@ -55,7 +55,9 @@ class GpsController {
                 
                 default:
                     print("Error on response")
+                    
                     textLog.write("Error on response")
+                    GpsSqlite.insertGpsData(gpsData: gpsData)
                     return
             }
             

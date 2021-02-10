@@ -19,6 +19,10 @@ struct GpsData:Encodable{
     var lastDD: Int
     var gpsMatrix = [GpsInfo] ()
     
+    private enum CodingKeys: String, CodingKey {
+            case _id, platform,id,pass,dateTimeStart,datetimeEnd, lastDD, gpsMatrix
+        }
+    
     init(gpsMatrix: [GpsInfo], dateTimeStart: String?, dateTimeEnd: String?, lastDD:Int) {
         self.id = LoginUtil().getIdUser()
         self.pass = LoginUtil().getPassword()

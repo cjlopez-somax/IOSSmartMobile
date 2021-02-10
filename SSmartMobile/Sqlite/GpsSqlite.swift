@@ -47,8 +47,8 @@ class GpsSqlite: NSObject {
                         if sqlite3_prepare_v2(dbQueue, insertStatementInfo, -1, &insertInfoQuery, nil) == SQLITE_OK{
                             sqlite3_bind_int(insertInfoQuery, 1, Int32(id))
                             sqlite3_bind_text(insertInfoQuery, 2, gpsInfo.dateTime, -1, SQLITE_TRANSIENT)
-                            sqlite3_bind_text(insertInfoQuery, 3, String(gpsInfo.latitude!), -1, SQLITE_TRANSIENT)
-                            sqlite3_bind_text(insertInfoQuery, 4, String(gpsInfo.longitude!), -1, SQLITE_TRANSIENT)
+                            sqlite3_bind_text(insertInfoQuery, 3, gpsInfo.latitude!, -1, SQLITE_TRANSIENT)
+                            sqlite3_bind_text(insertInfoQuery, 4, gpsInfo.longitude!, -1, SQLITE_TRANSIENT)
                             
                             if sqlite3_step(insertInfoQuery) == SQLITE_DONE{
                                 print("Info save on bd")

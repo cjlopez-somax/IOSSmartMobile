@@ -36,7 +36,7 @@ class Constantes {
     static let PHONE_INVALID: String = "phoneInvalid"
     
     static let SIZE_GPS_IOS: String = "sizeGpsIOs"
-    static let MIN_TIME_BETWEEN_LOCATIONS_IOS: String = "minTimeBetweenLocationsIOs"
+    static let MIN_LIMIT_SPEED_IOS: String = "minLimitSpeedIOs"
     
     
     

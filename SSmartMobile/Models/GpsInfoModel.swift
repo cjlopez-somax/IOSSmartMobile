@@ -9,14 +9,18 @@
 import Foundation
 
 struct GpsInfo:Codable{
-    var latitude: Double?
-    var longitude: Double?
+    var latitude: String?
+    var longitude: String?
     var dateTime: String?
     var speed:Double?
     
-    init(latitude:Double? = nil, longitude:Double?=nil, dateTime: String, speed:Double?) {
-        self.latitude = latitude
-        self.longitude = longitude
+    private enum CodingKeys: String, CodingKey {
+            case latitude, longitude,dateTime
+        }
+    
+    init(latitude:Double?, longitude:Double?, dateTime: String, speed:Double?) {
+        self.latitude = String(latitude!)
+        self.longitude = String(longitude!)
         self.dateTime = dateTime
         self.speed = speed
     }

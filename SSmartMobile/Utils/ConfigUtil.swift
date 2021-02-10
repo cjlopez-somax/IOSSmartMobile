@@ -29,7 +29,7 @@ class ConfigUtil{
         
         preferences.set(config.phoneInvalid, forKey: Constantes.PHONE_INVALID)
         preferences.set(config.sizeGpsIOs, forKey: Constantes.SIZE_GPS_IOS)
-        preferences.set(config.minTimeBetweenLocationsIOs, forKey: Constantes.MIN_TIME_BETWEEN_LOCATIONS_IOS)
+        preferences.set(config.minLimitSpeedIOs, forKey: Constantes.MIN_LIMIT_SPEED_IOS)
     }
     
     func getTimeInterval() -> Int{
@@ -204,10 +204,10 @@ class ConfigUtil{
         
     }
     
-    func getMinTimeBetweenLocationsIOs()->Double{
+    func getMinLimitSpeedIOs()->Double{
         let preferences = UserDefaults.standard
-        let minTimeBetweenLocationsIOs = preferences.integer(forKey: Constantes.MIN_TIME_BETWEEN_LOCATIONS_IOS)
-        return Double(minTimeBetweenLocationsIOs != 0 ? minTimeBetweenLocationsIOs : DefaultConfigConstantes.MIN_TIME_BETWEEN_LOCATIONS_IOS)
+        let minLimitSpeedIOs = preferences.double(forKey: Constantes.MIN_LIMIT_SPEED_IOS)
+        return Double(minLimitSpeedIOs != 0 ? minLimitSpeedIOs : DefaultConfigConstantes.MIN_LIMIT_SPEED_IOS_DEFAULT)
         
     }
     
