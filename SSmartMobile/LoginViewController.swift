@@ -18,6 +18,7 @@ class LoginViewController: UIViewController, MFMailComposeViewControllerDelegate
     @IBOutlet var UIButtonCall: UIButton!
     @IBOutlet var UIButtonEmail: UIButton!
     @IBOutlet var passwordInput: UITextField!
+    public var callbackQueue = DispatchQueue.main
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -155,16 +156,16 @@ class LoginViewController: UIViewController, MFMailComposeViewControllerDelegate
                             goToMainActivity()
                         }else{
                             print("Error on login")
-                            DispatchQueue.main.async {
-                                GeneralFunctions.showToast(controller: self, message: "Usuario o Contraseña incorrecta...", seconds: 2)
+                            callbackQueue.async { [weak self] in
+                                GeneralFunctions.showToast(controller: self!, message: "Usuario o Contraseña incorrecta...", seconds: 2)
                             }
                             
                         }
                         
                     } catch {
                         print(error)
-                        DispatchQueue.main.async {
-                            GeneralFunctions.showToast(controller: self, message: "Problemas con el servidor. Por favor intente nuevamente más tarde...", seconds: 3)
+                        callbackQueue.async { [weak self] in
+                            GeneralFunctions.showToast(controller: self!, message: "Problemas con el servidor. Por favor intente nuevamente más tarde...", seconds: 3)
                         }
                         
                     }
@@ -172,8 +173,8 @@ class LoginViewController: UIViewController, MFMailComposeViewControllerDelegate
                     
                 
                 default:
-                    DispatchQueue.main.async {
-                        GeneralFunctions.showToast(controller: self, message: "Problemas con el servidor. Por favor intente nuevamente más tarde...", seconds: 3)
+                    callbackQueue.async { [weak self] in
+                        GeneralFunctions.showToast(controller: self!, message: "Problemas con el servidor. Por favor intente nuevamente más tarde...", seconds: 3)
                     }
                     return
             }
@@ -186,39 +187,19 @@ class LoginViewController: UIViewController, MFMailComposeViewControllerDelegate
     }
     
     func dismissLoading(){
-        DispatchQueue.main.async {
-            self.alert?.dismiss(animated: false, completion: nil)
+        callbackQueue.async { [weak self] in
+            self?.alert?.dismiss(animated: false, completion: nil)
         }
     }
     
-    func goToMap(){
-        DispatchQueue.main.async {
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyBoard.instantiateViewController(withIdentifier: "map")
-            vc.modalPresentationStyle = .overFullScreen
-            self.present(vc, animated: true, completion: nil)
-        }
-    }
     
     func goToMainActivity(){
-        DispatchQueue.main.async {
+        
+        callbackQueue.async { [weak self] in
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyBoard.instantiateViewController(withIdentifier: "main")
             vc.modalPresentationStyle = .overFullScreen
-            self.present(vc, animated: true, completion: nil)
-        }
-    }
-    
-    func showToast(controller: UIViewController, message: String, seconds: Double) {
-        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        alert.view.backgroundColor = UIColor.black
-        alert.view.alpha = 0.6
-        alert.view.layer.cornerRadius = 15
-        
-        controller.present(alert, animated: true)
-        
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds){
-            alert.dismiss(animated: true)
+            self?.present(vc, animated: true, completion: nil)
         }
     }
     

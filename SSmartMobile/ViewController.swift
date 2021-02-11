@@ -25,6 +25,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     private var lastLocation:CLLocation?
     
+    public var callbackQueue = DispatchQueue.main
+    
     //private let minLimitSpeed = 1.38
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -79,8 +81,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     @objc func labelClicked(_ sender: Any) {
             print("UILabel clicked")
-        DispatchQueue.main.async {
-            // show Alert turn on gps
+        
+        callbackQueue.async { [weak self] in
             let alert = UIAlertController(title: "GPS está apagado", message: "Para encender GPS ir a \n Settings/Privacy/Location Services \ny mueva el switch a ON", preferredStyle: .alert)
 
 
@@ -88,7 +90,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 
             alert.addAction(cancelAction)
 
-            self.present(alert, animated: true, completion: nil)
+            self?.present(alert, animated: true, completion: nil)
         }
         }
     
@@ -136,8 +138,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             break
         case .authorizedWhenInUse:
             startMySignificantLocationChanges()
-            
-            DispatchQueue.main.async {
+            callbackQueue.async { [weak self] in
                 let alert = UIAlertController(title: "El uso de GPS en modo 'Siempre' es necesario para el correcto funcionamiento de SmartMobile", message: "Por favor permita el acceso a GPS Siempre", preferredStyle: .alert)
                 let settingsAction = UIAlertAction(title: "Settings", style: .default, handler: {action in
 
@@ -152,7 +153,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                       
                 alert.preferredAction = settingsAction
 
-                self.present(alert, animated: true, completion: nil)
+                self?.present(alert, animated: true, completion: nil)
             }
             
             
@@ -192,7 +193,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             print("denied access")
             if  CLLocationManager.locationServicesEnabled(){
                 print("entra a condicion")
-                DispatchQueue.main.async {
+                callbackQueue.async { [weak self] in
                     let alert = UIAlertController(title: "El uso de GPS en modo 'Siempre' es necesario para el correcto funcionamiento de SmartMobile", message: "Por favor permita el acceso a GPS Siempre", preferredStyle: .alert)
                     let settingsAction = UIAlertAction(title: "Settings", style: .default, handler: {action in
 
@@ -207,7 +208,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                           
                     alert.preferredAction = settingsAction
 
-                    self.present(alert, animated: true, completion: nil)
+                    self?.present(alert, animated: true, completion: nil)
                 }
             }
             break
@@ -498,12 +499,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         LoginUtil.logout()
         ConfigUtil.saveConfig(config: Config())
         locationManager.stopMonitoringSignificantLocationChanges()
-        DispatchQueue.main.async {
+        callbackQueue.async { [weak self] in
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyBoard.instantiateViewController(withIdentifier: "login")
             vc.modalPresentationStyle = .overFullScreen
-            self.present(vc, animated: true, completion: nil)
+            self?.present(vc, animated: true, completion: nil)
         }
+    
     }
     
     func checkGpsMatrixForUpload(){
