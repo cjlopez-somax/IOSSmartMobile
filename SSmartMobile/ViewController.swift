@@ -262,7 +262,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func checkSleepDay()->Bool{
-        if ConfigUtil().isSleepDay(){
+        if ConfigUtil.isSleepDay(){
             print("SleepDay is detect")
             textLog.write("SleepDay is detect")
             return true
@@ -271,7 +271,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func checkSleepTimeEnd(current:Date)->Bool{
-        let sleeptTimeEnd = ConfigUtil().getSleepTimeEnd()
+        let sleeptTimeEnd = ConfigUtil.getSleepTimeEnd()
         if(current < sleeptTimeEnd){
             return true
         }
@@ -279,9 +279,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func checkSleepTimeStart(current:Date, gpsDataList: [GpsData])->Bool{
-        let sleepTimeStart = ConfigUtil().getSleepTimeStart()
+        let sleepTimeStart = ConfigUtil.getSleepTimeStart()
         if current >= sleepTimeStart{
-            ConfigUtil().checkConfigUpdate()
+            ConfigUtil.checkConfigUpdate()
             if gpsDataList.count > 0 {
                 GpsSqlite.deleteTablesGps()
             }
@@ -292,7 +292,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func checkGpsDaily()->Bool{
         if VariablesUtil.isMaxDailyGpsAccess() {
-            self.lastDDDate = ConfigUtil().getSleepTimeStart()
+            self.lastDDDate = ConfigUtil.getSleepTimeStart()
             VariablesUtil.setLastDateDetection(date: self.lastDDDate)
             
             VariablesUtil.resetVariables()
@@ -328,18 +328,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func changeToDD3(){
         textLog.write("changeToDD3 is called")
-        let detectDriveDuration = ConfigUtil().getDetectDriveDuration()
+        let detectDriveDuration = ConfigUtil.getDetectDriveDuration()
         let detectDriveDateSaved = VariablesUtil.getDetectDriveDate()
         print("detectDriveDateSaved: \(detectDriveDateSaved)")
         let dateDetectDrive = detectDriveDateSaved.addingTimeInterval(TimeInterval(detectDriveDuration))
         print("dateDetectDrive: \(dateDetectDrive)")
         textLog.write("dateDetectDrive: \(dateDetectDrive)")
-        let dateSleepTimeStart = ConfigUtil().getSleepTimeStart()
+        let dateSleepTimeStart = ConfigUtil.getSleepTimeStart()
         print("dateSleepTimeStart: \(dateSleepTimeStart)")
         if dateDetectDrive >= dateSleepTimeStart {
             print("detectDriveDate is over sleepTime")
             VariablesUtil.resetVariables()
-            self.lastDDDate = ConfigUtil().getSleepTimeStart()
+            self.lastDDDate = ConfigUtil.getSleepTimeStart()
         }else{
             self.lastDDDate = dateDetectDrive
             DriveUtil.setDetectDriveState(detectDriveState: 0)
@@ -373,7 +373,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         textLog.write("currentDate: \(currentDateTime)")
         print("lastDDDate: \(self.lastDDDate)")
         textLog.write("lastDDDate: \(self.lastDDDate)")
-        if ConfigUtil().isPhoneInvalid(){
+        if ConfigUtil.isPhoneInvalid(){
             textLog.write("phone is invalid")
             locationManager.stopMonitoringSignificantLocationChanges()
             goToLogin()
@@ -420,7 +420,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 print("Speed between locations: \(speed) m/s")
                 textLog.write("Speed between locations: \(speed) m/s")
                 
-                let minLimitSpeed = ConfigUtil().getMinLimitSpeedIOs()
+                let minLimitSpeed = ConfigUtil.getMinLimitSpeedIOs()
                 print("minLimitSpeedConfig: \(minLimitSpeed) m/s")
                 textLog.write("minLimitSpeedConfig: \(minLimitSpeed) m/s")
                 if difference >= 900{
@@ -495,8 +495,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func goToLogin(){
         
-        LoginUtil().logout()
-        ConfigUtil().saveConfig(config: Config())
+        LoginUtil.logout()
+        ConfigUtil.saveConfig(config: Config())
         locationManager.stopMonitoringSignificantLocationChanges()
         DispatchQueue.main.async {
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
@@ -507,7 +507,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func checkGpsMatrixForUpload(){
-        let sizeGpsIOs = ConfigUtil().getSizeGpsIOs()
+        let sizeGpsIOs = ConfigUtil.getSizeGpsIOs()
         print("sizeGpsIOs: \(sizeGpsIOs)")
         if gpsMatrix.count >= sizeGpsIOs {
             sendDataToServer()

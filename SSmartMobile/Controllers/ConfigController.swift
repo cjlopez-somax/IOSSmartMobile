@@ -20,13 +20,13 @@ class ConfigController{
         let url = String( format : Constantes.SERVERBASE_URL + "flota/getApplicationsSetting")
         let urlComponents = NSURLComponents(string: url)!
         urlComponents.queryItems = [
-            URLQueryItem(name: "id", value: LoginUtil().getIdUser()),
-            URLQueryItem(name: "pass", value: LoginUtil().getPassword()),
+            URLQueryItem(name: "id", value: LoginUtil.getIdUser()),
+            URLQueryItem(name: "pass", value: LoginUtil.getPassword()),
         ]
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "POST"
         urlRequest.setValue("Application/json", forHTTPHeaderField: "Content-Type")
-        let dataDictionary = ["id":LoginUtil().getIdUser(),"password":LoginUtil().getPassword()]
+        let dataDictionary = ["id":LoginUtil.getIdUser(),"password":LoginUtil.getPassword()]
         guard let httpBody = try? JSONSerialization.data(withJSONObject: dataDictionary, options: []) else {
                 return
             }
@@ -45,11 +45,11 @@ class ConfigController{
                     do {
                         let config = try JSONDecoder().decode(Config.self, from: data)
                         
-                        if ConfigUtil().validateConfig(config: config){
+                        if ConfigUtil.validateConfig(config: config){
                             print("ValidateConfig OK")
                             textLog.write("ValidateConfig OK")
-                            ConfigUtil().setLastConfigUpdateDate(date: GeneralFunctions.getCurrentTime())
-                            ConfigUtil().saveConfig(config: config)
+                            ConfigUtil.setLastConfigUpdateDate(date: GeneralFunctions.getCurrentTime())
+                            ConfigUtil.saveConfig(config: config)
                             
                             
                         }else{

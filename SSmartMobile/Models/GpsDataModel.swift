@@ -24,8 +24,8 @@ struct GpsData:Encodable{
         }
     
     init(gpsMatrix: [GpsInfo], dateTimeStart: String?, dateTimeEnd: String?, lastDD:Int) {
-        self.id = LoginUtil().getIdUser()
-        self.pass = LoginUtil().getPassword()
+        self.id = LoginUtil.getIdUser()
+        self.pass = LoginUtil.getPassword()
         
         self.gpsMatrix = gpsMatrix
         self.dateTimeStart = dateTimeStart
@@ -35,8 +35,8 @@ struct GpsData:Encodable{
     }
     
     init(gpsMatrix: [GpsInfo], dateTimeStart: String?, dateTimeEnd: String?, lastDD:Int, idData:Int) {
-        self.id = LoginUtil().getIdUser()
-        self.pass = LoginUtil().getPassword()
+        self.id = LoginUtil.getIdUser()
+        self.pass = LoginUtil.getPassword()
         
         self.gpsMatrix = gpsMatrix
         self.dateTimeStart = dateTimeStart

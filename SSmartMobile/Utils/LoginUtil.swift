@@ -8,11 +8,9 @@
 
 import Foundation
 
-class LoginUtil {
-    
-    init() {
-    }
-    func login(idUser:String, password:String){
+class LoginUtil: NSObject {
+
+    class func login(idUser:String, password:String){
         print("login is called")
         let preferences = UserDefaults.standard
         preferences.set(idUser, forKey: Constantes.ID_USER)
@@ -20,14 +18,14 @@ class LoginUtil {
         preferences.set(true, forKey: Constantes.IS_LOGIN)
     }
     
-    func logout(){
+    class func logout(){
         let preferences = UserDefaults.standard
         preferences.set(nil, forKey: Constantes.ID_USER)
         preferences.set(nil, forKey: Constantes.PASSWORD)
         preferences.set(false, forKey: Constantes.IS_LOGIN)
     }
     
-    func isLogin() -> Bool{
+    class func isLogin() -> Bool{
         let preferences = UserDefaults.standard
         let isLogin = preferences.bool(forKey: Constantes.IS_LOGIN)
         let idUser = preferences.string(forKey: Constantes.ID_USER)
@@ -38,21 +36,21 @@ class LoginUtil {
         return isLogin && idUser != nil && password != nil
     }
     
-    func getIdUser() -> String{
+    class func getIdUser() -> String{
         let preferences = UserDefaults.standard
         return preferences.string(forKey: Constantes.ID_USER)!
     }
     
-    func getPassword() -> String{
+    class func getPassword() -> String{
         let preferences = UserDefaults.standard
         return preferences.string(forKey: Constantes.PASSWORD)!
     }
     
-    func getUser() -> User{
+    class func getUser() -> User{
         return User(id: getIdUser(), pass: getPassword())
     }
     
-    func phoneInvalidDetect(){
+    class func phoneInvalidDetect(){
         logout()
         GpsSqlite.deleteTablesGps()
         VariablesUtil.resetVariables()

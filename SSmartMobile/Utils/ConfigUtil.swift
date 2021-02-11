@@ -8,12 +8,9 @@
 
 import Foundation
 
-class ConfigUtil{
-    init() {
+class ConfigUtil: NSObject{
     
-    }
-    
-    func saveConfig(config:Config){
+    class func saveConfig(config:Config){
         print("saveConfig is called")
         let preferences = UserDefaults.standard
         preferences.set(config.timeInterval, forKey: Constantes.TIME_INTERVAL)
@@ -32,7 +29,7 @@ class ConfigUtil{
         preferences.set(config.minLimitSpeedIOs, forKey: Constantes.MIN_LIMIT_SPEED_IOS)
     }
     
-    func getTimeInterval() -> Int{
+    class func getTimeInterval() -> Int{
         print("getTimeIntervalGps is called")
         let preferences = UserDefaults.standard
         let timeInterval = preferences.integer(forKey: Constantes.TIME_INTERVAL)
@@ -41,7 +38,7 @@ class ConfigUtil{
         return finalTimeInterval * 60
     }
     
-    func getSampleRateGps() -> Int{
+    class func getSampleRateGps() -> Int{
         print("detSampleRateGps is called")
         let preferences = UserDefaults.standard
         let sampleRateGps = preferences.integer(forKey: Constantes.SAMPLE_RATE_GPS)
@@ -49,7 +46,7 @@ class ConfigUtil{
         return sampleRateGps != 0 ? sampleRateGps : DefaultConfigConstantes.SAMPLE_RATE_GPS_DEFAULT
     }
     
-    func getTimeGps() -> Int{
+    class func getTimeGps() -> Int{
         print("getTimeGps is called")
         let preferences = UserDefaults.standard
         let timeGps = preferences.integer(forKey: Constantes.TIME_GPS)
@@ -57,7 +54,7 @@ class ConfigUtil{
         return timeGps != 0 ? timeGps : DefaultConfigConstantes.TIME_GPS_DEFAULT
     }
     
-    func getSleepDays()->Array<Int>{
+    class func getSleepDays()->Array<Int>{
         let preferences = UserDefaults.standard
         let sleepDays = preferences.string(forKey: Constantes.SLEEP_DAYS)
         let days = sleepDays?.components(separatedBy: ",")
@@ -68,7 +65,7 @@ class ConfigUtil{
         return intArraySleepDays
     }
     
-    func isSleepDay()->Bool{
+    class func isSleepDay()->Bool{
         let sleepDays = getSleepDays()
         let date = Date()
         let calendar = Calendar.current
@@ -82,7 +79,7 @@ class ConfigUtil{
         return false
     }
     
-    func getSleepTimeStart() -> Date{
+    class func getSleepTimeStart() -> Date{
         let preferences = UserDefaults.standard
         let sleepTimeStart = preferences.string(forKey: Constantes.SLEEP_TIME_START) ?? DefaultConfigConstantes.SLEEP_TIME_START_DEFAULT
         let sleepTime = sleepTimeStart.components(separatedBy: ":")
@@ -94,7 +91,7 @@ class ConfigUtil{
         return finalDate
     }
     
-    func getSleepTimeEnd() -> Date{
+    class func getSleepTimeEnd() -> Date{
         let preferences = UserDefaults.standard
         let sleepTimeEnd = preferences.string(forKey: Constantes.SLEEP_TIME_END) ?? DefaultConfigConstantes.SLEEP_TIME_END_DEFAULT
         let sleepTime = sleepTimeEnd.components(separatedBy: ":")
@@ -105,7 +102,7 @@ class ConfigUtil{
         return finalDate
     }
     
-    func isOnSleepTime()->Bool{
+    class func isOnSleepTime()->Bool{
         let sleepTimeStart = getSleepTimeStart()
         let sleepTimeEnd = getSleepTimeEnd()
         let actualDate = GeneralFunctions.getCurrentTime()
@@ -120,19 +117,19 @@ class ConfigUtil{
         return false
     }
     
-    func getDetectDriveDuration()->Int{
+    class func getDetectDriveDuration()->Int{
         let preferences = UserDefaults.standard
         let detectDriveDuration = preferences.integer(forKey: Constantes.DETECT_DRIVE_DURATION)
         let finalDetectDrive = detectDriveDuration != 0 ? detectDriveDuration : DefaultConfigConstantes.DETECT_DRIVE_DURATION_DEFAULT
         return finalDetectDrive * 60
     }
     
-    func setLastConfigUpdateDate(date:Date){
+    class func setLastConfigUpdateDate(date:Date){
         let preferences = UserDefaults.standard
         preferences.set(date, forKey: Constantes.LAST_CONFIG_UPDATE)
     }
     
-    func getLastConfigUpdateDate() -> Date{
+    class func getLastConfigUpdateDate() -> Date{
         let preferences = UserDefaults.standard
         var date = GeneralFunctions.getCurrentTime()
         if let dateStore = preferences.object(forKey: Constantes.LAST_CONFIG_UPDATE) as? Date {
@@ -143,7 +140,7 @@ class ConfigUtil{
     }
     
     
-    func checkConfigUpdate(){
+    class func checkConfigUpdate(){
         print("checkConfigUpdate is called")
         let lastConfigUpdate = getLastConfigUpdateDate()
         let isSameDay = Calendar.current.isDate(lastConfigUpdate, inSameDayAs: GeneralFunctions.getCurrentTime())
@@ -153,7 +150,7 @@ class ConfigUtil{
     }
     
     
-    func validateConfig(config:Config)->Bool{
+    class func validateConfig(config:Config)->Bool{
         
         
         if config.timeInterval < 1 ||
@@ -185,26 +182,26 @@ class ConfigUtil{
         return true
     }
     
-    func isPhoneInvalid()->Bool{
+    class func isPhoneInvalid()->Bool{
         let preferences = UserDefaults.standard
         let phoneInvalid = preferences.integer(forKey: Constantes.PHONE_INVALID)
         return phoneInvalid == 1
     }
     
-    func setPhoneInvalid(){
+    class func setPhoneInvalid(){
         let preferences = UserDefaults.standard
         preferences.set(1, forKey: Constantes.PHONE_INVALID)
     }
     
     
-    func getSizeGpsIOs()->Int{
+    class func getSizeGpsIOs()->Int{
         let preferences = UserDefaults.standard
         let sizeGpsIOs = preferences.integer(forKey: Constantes.SIZE_GPS_IOS)
         return sizeGpsIOs != 0 ? sizeGpsIOs : DefaultConfigConstantes.SIZE_GPS_IOS_DEFAULT
         
     }
     
-    func getMinLimitSpeedIOs()->Double{
+    class func getMinLimitSpeedIOs()->Double{
         let preferences = UserDefaults.standard
         let minLimitSpeedIOs = preferences.double(forKey: Constantes.MIN_LIMIT_SPEED_IOS)
         return Double(minLimitSpeedIOs != 0 ? minLimitSpeedIOs : DefaultConfigConstantes.MIN_LIMIT_SPEED_IOS_DEFAULT)

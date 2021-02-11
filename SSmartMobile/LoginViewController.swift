@@ -32,7 +32,7 @@ class LoginViewController: UIViewController, MFMailComposeViewControllerDelegate
         layer.startPoint = CGPoint(x:0,y:0.5)
         layer.endPoint = CGPoint(x:1,y:0.5)
         view.layer.insertSublayer(layer, at: 0)
-        if LoginUtil().isLogin() {
+        if LoginUtil.isLogin() {
             self.goToMainActivity()
         }else{
             VariablesUtil.resetVariables()
@@ -150,7 +150,7 @@ class LoginViewController: UIViewController, MFMailComposeViewControllerDelegate
                         let loginResult = try JSONDecoder().decode(LoginResult.self, from: data)
                         print(loginResult.estado)
                         if loginResult.estado == 1 && loginResult.cluster == 1 {
-                            LoginUtil().login(idUser: idUser, password: password)
+                            LoginUtil.login(idUser: idUser, password: password)
                             ConfigController().getConfig()
                             goToMainActivity()
                         }else{

@@ -19,8 +19,8 @@ class GpsController {
         let url = String( format : Constantes.SERVERBASE_URL + "flota/saveApplicationGps")
         let urlComponents = NSURLComponents(string: url)!
         urlComponents.queryItems = [
-            URLQueryItem(name: "id", value: LoginUtil().getIdUser()),
-            URLQueryItem(name: "pass", value: LoginUtil().getPassword()),
+            URLQueryItem(name: "id", value: LoginUtil.getIdUser()),
+            URLQueryItem(name: "pass", value: LoginUtil.getPassword()),
         ]
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "POST"
@@ -72,8 +72,8 @@ class GpsController {
         let url = String( format : Constantes.SERVERBASE_URL + "flota/saveApplicationGpsHistory")
         let urlComponents = NSURLComponents(string: url)!
         urlComponents.queryItems = [
-            URLQueryItem(name: "id", value: LoginUtil().getIdUser()),
-            URLQueryItem(name: "pass", value: LoginUtil().getPassword()),
+            URLQueryItem(name: "id", value: LoginUtil.getIdUser()),
+            URLQueryItem(name: "pass", value: LoginUtil.getPassword()),
         ]
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "POST"
