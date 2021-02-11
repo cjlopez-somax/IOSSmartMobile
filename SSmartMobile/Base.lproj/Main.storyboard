@@ -85,11 +85,23 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="GGl-2g-iJv">
                                         <rect key="frame" x="32" y="506.33333333333326" width="326" height="303.66666666666674"/>
                                         <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Por favor, revisar permiso de Ubicación a Siempre" textAlignment="center" lineBreakMode="clip" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hWm-l1-Sgn">
+                                                <rect key="frame" x="0.0" y="0.0" width="326" height="36"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Revisar Permisos" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rTq-F4-cGi">
+                                                <rect key="frame" x="0.0" y="42.000000000000057" width="326" height="20.333333333333329"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zS1-O3-6oZ">
-                                                <rect key="frame" x="0.0" y="0.0" width="326" height="50"/>
+                                                <rect key="frame" x="0.0" y="68.333333333333314" width="326" height="50"/>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="mrl-gN-ePu">
-                                                <rect key="frame" x="0.0" y="56.000000000000043" width="326" height="247.66666666666663"/>
+                                                <rect key="frame" x="0.0" y="124.33333333333333" width="326" height="179.33333333333337"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mesa de ayuda" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wBZ-9t-scR">
                                                         <rect key="frame" x="0.0" y="0.0" width="326" height="20.333333333333332"/>
@@ -98,17 +110,17 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="zsf-W2-kOD">
-                                                        <rect key="frame" x="0.0" y="20.333333333333272" width="326" height="227.33333333333337"/>
+                                                        <rect key="frame" x="0.0" y="20.333333333333371" width="326" height="159"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="call" translatesAutoresizingMaskIntoConstraints="NO" id="N86-Bz-LZY">
-                                                                <rect key="frame" x="0.0" y="58.666666666666742" width="80" height="110"/>
+                                                                <rect key="frame" x="0.0" y="24.666666666666629" width="80" height="110"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="80" id="32w-rG-S0s"/>
                                                                     <constraint firstAttribute="height" constant="110" id="DdU-2m-gvC"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="QX4-YY-zWY">
-                                                                <rect key="frame" x="80" y="93.666666666666742" width="246" height="40"/>
+                                                                <rect key="frame" x="80" y="59.666666666666629" width="246" height="40"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DpE-N5-FRx">
                                                                         <rect key="frame" x="0.0" y="0.0" width="119" height="40"/>
@@ -160,6 +172,8 @@
                         <outlet property="UIButtonCall" destination="DpE-N5-FRx" id="wvS-ts-3jE"/>
                         <outlet property="UIButtonEmail" destination="mio-3u-hrG" id="4kw-Df-gIo"/>
                         <outlet property="gpsStateLabel" destination="lhj-BJ-0PA" id="3o3-I3-nAn"/>
+                        <outlet property="permissionAlwaysLabel" destination="rTq-F4-cGi" id="OsQ-sf-PEk"/>
+                        <outlet property="permissionDescriptionLabel" destination="hWm-l1-Sgn" id="c4N-uY-arW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

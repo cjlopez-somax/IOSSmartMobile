@@ -15,6 +15,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var UIButtonEmail: UIButton!
     @IBOutlet weak var gpsStateLabel: UILabel!
     
+    @IBOutlet weak var permissionAlwaysLabel: UILabel!
+    @IBOutlet weak var permissionDescriptionLabel: UILabel!
+    
     private var locationManager = CLLocationManager()
     
     private var gpsMatrix = [GpsInfo] ()
@@ -39,7 +42,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         setupButtons()
         setupLabelGps()
         checkLocationServices()
-        
+        setupPermissionLabel()
     }
     
     
@@ -64,6 +67,25 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
+    func setupPermissionLabel(){
+            
+        let boldAttribute = [NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-Bold", size: 18.0)!]
+            
+            
+        let attributedString = NSMutableAttributedString.init(string: "Revisar Permisos", attributes: boldAttribute)
+                    
+                    // Add Underline Style Attribute.
+        attributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: 1, range:NSRange.init(location: 0, length: attributedString.length));
+        permissionAlwaysLabel.attributedText = attributedString
+            
+        permissionAlwaysLabel.isUserInteractionEnabled = true
+        let guestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(permissionLabel(_:)))
+        permissionAlwaysLabel.addGestureRecognizer(guestureRecognizer)
+        
+        permissionAlwaysLabel.textColor = "#E8B321".color
+        permissionDescriptionLabel.textColor = "#E8B321".color
+        }
+    
     func setupLabelGps(){
         gpsStateLabel.isUserInteractionEnabled = true
         let guestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(labelClicked(_:)))
@@ -79,6 +101,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         view.layer.insertSublayer(layer, at: 0)
     }
     
+    
+    
+    @objc func permissionLabel(_ sender: Any) {
+        print("Permission clicked")
+        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+    }
+    
     @objc func labelClicked(_ sender: Any) {
             print("UILabel clicked")
         
@@ -92,7 +121,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 
             self?.present(alert, animated: true, completion: nil)
         }
-        }
+    }
     
     func setupButtons(){
         UIButtonCall.backgroundColor = "#E8B321".color
