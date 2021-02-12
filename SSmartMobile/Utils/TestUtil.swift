@@ -12,6 +12,9 @@ struct TextLog: TextOutputStream {
 
     /// Appends the given string to the stream.
     mutating func write(_ string: String) {
+        
+        return
+        
         let finalData = "\(GeneralFunctions.getCurrentTime()) - \(string) \n"
         let paths = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)
         let documentDirectoryPath = paths.first!
